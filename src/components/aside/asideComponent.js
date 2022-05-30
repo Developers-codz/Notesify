@@ -31,4 +31,5 @@ export const NavItem = styled.li`
 export const IconWrapper = styled.span`
   padding-top: 1rem !important;
   padding: 1rem;
+  color:var(--color-dark);
 `;

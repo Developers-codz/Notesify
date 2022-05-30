@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { NavMenu, NavItem, NavLinks, IconWrapper } from "./asideComponent";
-import { HomeIcon ,TrashIcon,ArchiveIcon} from "../../assets/icons/navigationIcon";
+import { HomeIcon ,TrashIcon,ArchiveIcon,SettingsIcon} from "../../assets/icons/navigationIcon";
 
 export const Aside = () => {
   const { pathname } = useLocation();
@@ -21,6 +21,10 @@ export const Aside = () => {
         <NavLinks to="/trash" exact >
           <IconWrapper><TrashIcon height="2rem" width="2rem" /></IconWrapper>
           <NavItem>Trash</NavItem>
+        </NavLinks>
+        <NavLinks to="/settings" exact >
+          <IconWrapper><SettingsIcon height="2rem" width="2rem" /></IconWrapper>
+          <NavItem>Settings</NavItem>
         </NavLinks>
       </NavMenu>
     </aside>

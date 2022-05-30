@@ -25,6 +25,7 @@ function App() {
      <Route path="/signup" element={<SignUp />} />
        <Route path="/login" element={<Login />} />
      </Route>
+     <Route path="/mockman" element={<MockMan />} />
      </Routes>
       <ToastContainer />
     </div>

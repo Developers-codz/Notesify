@@ -27,17 +27,21 @@ html{
   grid-gap: 1rem;
   grid-template-areas: "nav nav"
   "aside main";
+  background-color:#f2efeb;;
+
 }
 .aside{
   grid-area: aside;
   position:fixed;
   left:0;
   top:13vh;
+ 
 }
 .header-wrapper{
   grid-area: nav;
   position: fixed;
   top:0;
+  background-color:var(--color-light) ;
 }
 .section{
   grid-area: main;
@@ -45,6 +49,7 @@ html{
   justify-content: space-between;
   padding-top:13vh; 
   min-height: 97.5vh;
+ 
 }
 @media only screen and (max-width:560px){
   html{

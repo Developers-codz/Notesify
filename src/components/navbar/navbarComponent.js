@@ -6,7 +6,6 @@ export const Header = styled.div`
   justify-content: space-between;
   padding: 1rem;
   z-index: 3;
-  border-bottom: 1px solid var(--color-dark);
 `;
 export const Heading = styled.span`
   font-size: 2rem;
