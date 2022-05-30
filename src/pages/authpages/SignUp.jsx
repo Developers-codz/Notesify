@@ -8,44 +8,54 @@ import {
   Para,
 } from "./AuthFormComponent";
 import { useState } from "react";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 import { signup } from "../../Redux/Reducers/authSlice";
-import {AlertToast} from "../../components/toasts"
+import { AlertToast } from "../../components/toasts";
 
 export const SignUp = () => {
   const dispatch = useDispatch();
 
   const [userDetail, setUserDetail] = useState({
-    fullname: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    username: "",
     password: "",
   });
-  const [passMatch,setPassMatch] = useState("");
+  const [passMatch, setPassMatch] = useState("");
 
-  const changeHandler = (e) =>{
-    console.log(e.target.name)
-    setUserDetail(prevDetail => ({...prevDetail,[e.target.name]:e.target.value}))
-  }
+
 
   const clickHandler = (e) => {
-    e.preventDefault();
-    const {fullname,email,username,password} = userDetail;
-    console.log(userDetail,passMatch)
-    if(fullname && email && username && password !== "" && password === passMatch ){
-      dispatch(signup(userDetail))
-      setUserDetail(prev => ({...prev,fullname:"",email:"",username:"",password:""}))
-      setPassMatch("")
-    }
-    else if(password !== passMatch){
+    const { firstname, email, lastname, password } = userDetail;
+    if (
+      firstname &&
+      email &&
+      lastname &&
+      password !== "" &&
+      password === passMatch
+    ) {
+      dispatch(signup(userDetail));
+      setUserDetail((prev) => ({
+        ...prev,
+        firstname: "",
+        lastname:"",
+        email: "",
+        password: "",
+      }));
+      setPassMatch("");
+    } else if (password !== passMatch) {
       AlertToast("Password do not match");
+    } else {
+      AlertToast("Please Enter All the field");
     }
-    else {
-      AlertToast("Please Enter Alll the field");
-    }
-  }
+  };
 
-  const {fullname,email,username,password} = userDetail;
+  const changeHandler = (e)=> {
+    setUserDetail(prev => ({...prev,[e.target.name]:e.target.value}))
+  }
+  
+
+  const { firstname, email, lastname, password } = userDetail;
   return (
     <div className="section">
       <Wrapper>
@@ -53,31 +63,31 @@ export const SignUp = () => {
           <Header>SignUp</Header>
           <FormInput
             type="text"
-            placeholder="Enter Your Fullname"
-            name="fullname"
-            value={fullname}
-            onChange={(e) => changeHandler(e)}
-           />
+            name="firstname"
+            value={firstname}
+            onChange={changeHandler}
+            placeholder="Enter Your firstname"
+          />
+            <FormInput
+              type="text"
+              name="lastname"
+              value={lastname}
+              onChange={changeHandler}
+              placeholder="Enter a lastname"
+            />
           <FormInput
             type="text"
-            placeholder="Enter Your Email"
             name="email"
             value={email}
-            onChange={(e) => changeHandler(e)}
-          />
-          <FormInput
-            type="text"
-            placeholder="Enter a UserName"
-            name="username"
-            value={username}
-            onChange={(e) => changeHandler(e)}
+            onChange={changeHandler}
+            placeholder="Enter Your Email"
           />
           <FormInput
             type="password"
             placeholder="Enter Your Password"
             name="password"
             value={password}
-            onChange={(e) => changeHandler(e)}
+            onChange={changeHandler}
           />
           <FormInput
             type="password"
@@ -86,7 +96,9 @@ export const SignUp = () => {
             onChange={(e) => setPassMatch(e.target.value)}
           />
 
-          <PrimaryButton primary onClick={(e)=>clickHandler(e)}>SignUp</PrimaryButton>
+          <PrimaryButton primary onClick={(e) => clickHandler(e)}>
+            SignUp
+          </PrimaryButton>
           <Para>
             Already Have an account ? <Link to="/login">Login now</Link>
           </Para>
