@@ -8,7 +8,10 @@ export const EditorWrapper = styled.div`
 width:40rem;
 height:22rem;
 border-radius: 20px;
-position: relative;
+position: fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 `
 
 export const TitleBox = styled.input`
