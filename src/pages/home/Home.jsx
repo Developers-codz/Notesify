@@ -5,7 +5,7 @@ import "./home.css";
 import {
   EditorWrapper,
   TitleBox,
-  Pallatte,
+  Pallette,
   PinkButton,
   BlueButton,
   GreenButton,
@@ -46,13 +46,13 @@ export const Home = () => {
           height={"100px"}
         />
         <EditorFooter>
-        <Pallatte>
+        <Pallette>
           <PinkButton onClick={() => setbgColor("lightpink")}></PinkButton>
           <BlueButton onClick={() => setbgColor("lightblue")}></BlueButton>
           <GreenButton onClick={() => setbgColor("lightgreen")}></GreenButton>
           <YellowButton onClick={() => setbgColor("yellow")}></YellowButton>
           <WhiteButton onClick={() => setbgColor("white")}></WhiteButton>
-        </Pallatte>
+        </Pallette>
         <div>
       <select>
         <option>Priority</option>

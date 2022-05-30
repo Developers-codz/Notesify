@@ -36,7 +36,7 @@ border-radius:50%;
 }
 `
 
-export const Pallatte = styled.div`
+export const Pallette = styled.div`
 display:flex;
 justify-content:start;
 align-items:center;
