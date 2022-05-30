@@ -26,8 +26,6 @@ const modules = {
   ],
 };
 export const Home = () => {
-  const [notetext, setText] = useState("");
-  const [notetitle, setTitle] = useState("");
   const [bgColor, setbgColor] = useState("white");
   const [isNotesOpen,setOpen] = useState(false)
   return (
