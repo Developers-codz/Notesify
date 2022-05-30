@@ -6,15 +6,19 @@ export const HomeIcon = ({width,height}) =>{
     )
 }
 
-export const ExploreIcon = ({width,height}) =>{
+export const TrashIcon = ({width,height}) =>{
     return (
-        <svg width={width} height={height}  viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8zm-5.5-2.5l7.51-3.49L17.5 6.5L9.99 9.99L6.5 17.5zm5.5-6.6c.61 0 1.1.49 1.1 1.1s-.49 1.1-1.1 1.1s-1.1-.49-1.1-1.1s.49-1.1 1.1-1.1z"></path></svg>
+        <svg width={width} height={height}  viewBox="0 0 256 256">
+        <path fill="currentColor" d="M216 48h-36V36a28.1 28.1 0 0 0-28-28h-48a28.1 28.1 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20.1 20.1 0 0 0 20 20h128a20.1 20.1 0 0 0 20-20V72h4a12 12 0 0 0 0-24ZM100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0Zm48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0Z"></path></svg>
+        
     )
 }
 
-export const NotificationIcon = ({width,height}) =>{
+export const ArchiveIcon = ({width,height}) =>{
     return (
-        <svg width={width} height={height}  viewBox="0 0 24 24"><path fill="currentColor" d="M19.29 17.29L18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.9 0 1.34-1.08.71-1.71zM16 17H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6zm-4 5c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2z"></path></svg>
+        <svg width={width} height={height}  viewBox="0 0 24 24">
+          <path fill="currentColor" d="M3 21V5.8L5.3 3h13.4L21 5.8V21ZM5.4 6h13.2l-.85-1H6.25ZM5 19h14V8H5Zm7-1l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14Zm-7 1V8v11Z"></path>
+            </svg>
     )
 }
 
