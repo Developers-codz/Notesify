@@ -12,7 +12,8 @@ export const Wrapper = styled.div`
   }
 `;
 export const Section = styled.div`
-  margin-left: ${(props) => (props.logo ? "4rem" : "5rem")};
+  margin-left: ${(props) => (props.logo ? "" : "5rem")};
+  margin-bottom: ${(props) => (props.logo ? "1rem" : "")};
   @media only screen and (max-width: 560px) {
     margin-left:0
   }
