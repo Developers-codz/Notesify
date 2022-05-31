@@ -19,7 +19,7 @@ import {
 
 import {
   handleToggleModal,
-  postNoteHandler,
+  createNoteHandler,
 } from "../../Redux/Reducers/notesSlice";
 import { useDispatch } from "react-redux";
 
@@ -67,7 +67,7 @@ export const EditorModal = () => {
       ":" +
       today.getSeconds();
     dispatch(
-      postNoteHandler({
+      createNoteHandler({
         title: note.title,
         content: parsedData,
         timestamp: timeStamp,
