@@ -11,7 +11,7 @@ import {
 } from "./eachNoteComponent";
 import { EditIcon,ArchiveIcon,TrashIcon } from "../../assets/icons";
 import {useSelector,useDispatch} from "react-redux"
-import {handleToggleModal,deleteNoteHandler} from "../../Redux/Reducers/notesSlice";
+import {handleToggleModal,deleteNoteHandler,archiveNote} from "../../Redux/Reducers/notesSlice";
  
 
 export const EachNote = ({ note }) => {
@@ -28,7 +28,7 @@ export const EachNote = ({ note }) => {
         <Priority>{priority}</Priority>
         <IconContainer>
           <IconWrapper onClick={()=>dispatch(handleToggleModal())}><EditIcon /></IconWrapper>
-          <IconWrapper><ArchiveIcon width="1.5rem" height="1.5rem" /></IconWrapper>
+          <IconWrapper onClick={()=>dispatch(archiveNote(note))}><ArchiveIcon width="1.5rem" height="1.5rem" /></IconWrapper>
           <IconWrapper onClick={()=>dispatch(deleteNoteHandler(_id))}><TrashIcon width="1.5rem" height="1.5rem" /></IconWrapper>
 
         </IconContainer>

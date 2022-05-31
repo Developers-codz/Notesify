@@ -105,6 +105,32 @@ export const deleteNoteHandler = createAsyncThunk(
   }
 );
 
+//  Archive Route 
+
+export const getArchiveNotes = createAsyncThunk("notes/getArchiveNotes", async (mockParams,{rejectWithValue})=>{
+  const encodedToken = localStorage.getItem("token");
+  try{
+    const response = await axios.get("/api/archives",{headers:{authorization:encodedToken}})
+    return response.data
+  }
+  catch(error){
+    rejectWithValue(error)
+  }
+
+})
+
+export const archiveNote = createAsyncThunk("notes/archiveNote", async (note,{rejectWithValue}) =>{
+  const encodedToken = localStorage.getItem("token");
+  const {_id} = note
+  try{
+    const response =await axios.post(`/api/notes/archives/${_id}`,{note},{headers:{authorization:encodedToken}});
+    return response.data
+  }
+  catch(error){
+    rejectWithValue(error)
+  }
+})
+
 export const notesSlice = createSlice({
   name: "notes",
   initialState,
@@ -144,7 +170,21 @@ export const notesSlice = createSlice({
       })
       .addCase(deleteNoteHandler.rejected, (state, action) => {
         console.log(action.payload);
-      });
+      })
+      // Archive reducers
+      .addCase(getArchiveNotes.fulfilled,(state,action) => {
+        state.archive = action.payload.archives
+      })
+      .addCase(getArchiveNotes.rejected,(state,action) => {
+        console.log(action.payload)
+      })
+      .addCase(archiveNote.fulfilled,(state,action) =>{
+        state.notes = action.payload.notes
+        state.archive = action.payload.archives
+      })
+      .addCase(archiveNote,(state,action) => {
+        console.log(action.payload);
+      })
   },
 });
 export default notesSlice.reducer;
