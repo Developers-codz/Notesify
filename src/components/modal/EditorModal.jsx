@@ -41,7 +41,7 @@ const noModules = {
 export const EditorModal = () => {
   const dispatch = useDispatch();
 
-  const [bgColor, setbgColor] = useState("white");
+  const [bgColor, setbgColor] = useState("whitesmoke");
   const [note, setNote] = useState({ title: "", content: "", priority: "low" });
   const [enable, setEnable] = useState(true);
 

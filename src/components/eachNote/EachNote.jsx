@@ -11,12 +11,13 @@ import {
 } from "./eachNoteComponent";
 import { EditIcon,ArchiveIcon,TrashIcon } from "../../assets/icons";
 import {useSelector,useDispatch} from "react-redux"
-import {handleToggleModal} from "../../Redux/Reducers/notesSlice";
+import {handleToggleModal,deleteNoteHandler} from "../../Redux/Reducers/notesSlice";
  
 
 export const EachNote = ({ note }) => {
     const dispatch = useDispatch();
-    const { title, content, timestamp, priority } = note;
+    const { title, content, timestamp, priority,_id } = note;
+    console.log(_id)
 
   return (
     <NoteCard style={{ backgroundColor: note.bgcolor }}>
@@ -28,7 +29,7 @@ export const EachNote = ({ note }) => {
         <IconContainer>
           <IconWrapper onClick={()=>dispatch(handleToggleModal())}><EditIcon /></IconWrapper>
           <IconWrapper><ArchiveIcon width="1.5rem" height="1.5rem" /></IconWrapper>
-          <IconWrapper><TrashIcon width="1.5rem" height="1.5rem" /></IconWrapper>
+          <IconWrapper onClick={()=>dispatch(deleteNoteHandler(_id))}><TrashIcon width="1.5rem" height="1.5rem" /></IconWrapper>
 
         </IconContainer>
       </Footer>
