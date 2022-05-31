@@ -5,6 +5,8 @@ const initialState = {
   userProfile: {},
   modalOpen: false,
   notes: [],
+  archive:[],
+  trash:[]
 };
 
 export const getUserNotes = createAsyncThunk(
