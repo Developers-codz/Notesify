@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import "../../pages/home/home.css";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -17,7 +17,10 @@ import {
   EditorFooter,
 } from "../../pages/home/homeComponents";
 
-import { handleToggleModal ,postNoteHandler} from "../../Redux/Reducers/notesSlice";
+import {
+  handleToggleModal,
+  postNoteHandler,
+} from "../../Redux/Reducers/notesSlice";
 import { useDispatch } from "react-redux";
 
 const modules = {
@@ -39,21 +42,40 @@ export const EditorModal = () => {
   const dispatch = useDispatch();
 
   const [bgColor, setbgColor] = useState("white");
-  const [note, setNote] = useState({ title: "", content: "" });
+  const [note, setNote] = useState({ title: "", content: "", priority: "low" });
   const [enable, setEnable] = useState(true);
-
-  const inputRef = useRef();
 
   const changeHandler = (e) => {
     setNote((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const clickHandler = () => {
-    setEnable(false)
-  const parsedData = parse(`${note.content}`).props.children
-    dispatch(postNoteHandler({title:note.title,content:parsedData}))
-    dispatch(handleToggleModal())
-
+    console.log(note)
+    setEnable(false);
+    const parsedData = parse(`${note.content}`).props.children;
+    const today = new Date();
+    var timeStamp =
+      today.getFullYear() +
+      "-" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getDate() +
+      " " +
+      today.getHours() +
+      ":" +
+      today.getMinutes() +
+      ":" +
+      today.getSeconds();
+    dispatch(
+      postNoteHandler({
+        title: note.title,
+        content: parsedData,
+        timestamp: timeStamp,
+        bgcolor: bgColor,
+        priority:note.priority
+      })
+    );
+    dispatch(handleToggleModal());
   };
 
   return (
@@ -78,10 +100,7 @@ export const EditorModal = () => {
           height={"100px"}
           value={note.content}
           readOnly={!enable}
-          ref={inputRef}
-          onChange={(e) =>
-            setNote((prev) => ({ ...prev, content: e }))
-          }
+          onChange={(e) => setNote((prev) => ({ ...prev, content: e }))}
         />
         <EditorFooter>
           <Pallette>
@@ -92,11 +111,16 @@ export const EditorModal = () => {
             <WhiteButton onClick={() => setbgColor("white")}></WhiteButton>
           </Pallette>
           <div>
-            <select>
+            <select
+              value={note.priority}
+              onChange={(e) =>
+                setNote((prev) => ({ ...prev, priority: e.target.value }))
+              }
+            >
               <option>Priority</option>
-              <option>Low</option>
-              <option>High</option>
-              <option>Medium</option>
+              <option value="Low">Low</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
             </select>
             <ButtonToNote onClick={clickHandler}>Add</ButtonToNote>
           </div>

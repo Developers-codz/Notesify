@@ -60,8 +60,7 @@ const notesSlice = createSlice({
     });
 
     builder.addCase(postNoteHandler.fulfilled,(state,action) =>{
-      console.log(action.payload)
-      state.notes = action.payload
+      state.notes = action.payload.notes
     })
     builder.addCase(postNoteHandler.rejected,(state,action)=>{
       console.log(action.payload)

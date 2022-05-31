@@ -92,3 +92,8 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 `
+
+export const NotesWrapper = styled.div`
+padding:1rem;
+text-align: start;
+`
