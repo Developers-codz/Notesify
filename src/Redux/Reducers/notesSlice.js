@@ -142,6 +142,16 @@ export const unarchiveNote = createAsyncThunk("notes/unarchiveNote", async (note
   }
 })
 
+export const deleteArchiveNote = createAsyncThunk("notes/deleteArchiveNote", async (id,{rejectWithValue}) =>{
+  const encodedToken = localStorage.getItem("token");
+  try{
+    const response =await axios.delete(`/api/archives/delete/${id}`,{headers:{authorization:encodedToken}});
+    return response.data
+  }
+  catch(error){
+    rejectWithValue(error)
+  }
+})
 export const notesSlice = createSlice({
   name: "notes",
   initialState,
@@ -201,6 +211,12 @@ export const notesSlice = createSlice({
         state.archive = action.payload.archives
       })
       .addCase(unarchiveNote.rejected,(state,action) => {
+        console.log(action.payload);
+      })
+      .addCase(deleteArchiveNote.fulfilled,(state,action) =>{
+        state.archive = action.payload.archives
+      })
+      .addCase(deleteArchiveNote.rejected,(state,action) => {
         console.log(action.payload);
       })
   },

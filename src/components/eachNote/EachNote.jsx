@@ -9,19 +9,24 @@ import {
   IconWrapper,
   IconContainer,
 } from "./eachNoteComponent";
-import { EditIcon, ArchiveIcon, TrashIcon,UnArchive } from "../../assets/icons";
+import {
+  EditIcon,
+  ArchiveIcon,
+  TrashIcon,
+  UnArchive,
+} from "../../assets/icons";
 import { useSelector, useDispatch } from "react-redux";
 import {
   handleToggleModal,
   deleteNoteHandler,
   archiveNote,
-  unarchiveNote
+  unarchiveNote,
+  deleteArchiveNote,
 } from "../../Redux/Reducers/notesSlice";
 
 export const EachNote = ({ note, flag }) => {
   const dispatch = useDispatch();
   const { title, content, timestamp, priority, _id } = note;
- 
 
   return (
     <NoteCard style={{ backgroundColor: note.bgcolor }}>
@@ -34,15 +39,21 @@ export const EachNote = ({ note, flag }) => {
           <IconWrapper onClick={() => dispatch(handleToggleModal())}>
             <EditIcon />
           </IconWrapper>
-          {flag === "archive"  ?
-          <IconWrapper onClick={() => dispatch(unarchiveNote(note))}>
-            <UnArchive width="1.5rem" height="1.5rem" />
-          </IconWrapper>
-          :
-          <IconWrapper onClick={() => dispatch(archiveNote(note))}>
-            <ArchiveIcon width="1.5rem" height="1.5rem" />
-          </IconWrapper>}
-          <IconWrapper onClick={() => dispatch(deleteNoteHandler(_id))}>
+          {flag === "archive" ? (
+            <IconWrapper onClick={() => dispatch(unarchiveNote(note))}>
+              <UnArchive width="1.5rem" height="1.5rem" />
+            </IconWrapper>
+          ) : (
+            <IconWrapper onClick={() => dispatch(archiveNote(note))}>
+              <ArchiveIcon width="1.5rem" height="1.5rem" />
+            </IconWrapper>
+          )}
+          <IconWrapper
+            onClick={() => flag === "archive" ? 
+              dispatch(deleteArchiveNote(_id))
+              : dispatch(deleteNoteHandler(_id))
+            }
+          >
             <TrashIcon width="1.5rem" height="1.5rem" />
           </IconWrapper>
         </IconContainer>
