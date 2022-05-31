@@ -16,7 +16,7 @@ function App() {
     <>{modalOpen && <EditorModal /> }
     <div className="App" style={
           modalOpen
-            ? { pointerEvents: "none", opacity: ".3" }
+            ? { pointerEvents: "none", opacity: ".1" }
             : { pointerEvents: "auto", opacity: "1" }
         } >
       <GlobalStyle />

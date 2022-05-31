@@ -87,6 +87,20 @@ margin: 0 1rem;
   }
 `
 
+export const ButtonToNoteNow = styled(ButtonToNote)`
+  background-color:var(--color-secondary-dark);
+  position:static;
+  padding:.5rem 1rem;
+  border-radius:20px;
+  margin:1rem 0;
+  color:var(--color-primary) !important;
+  &:hover{
+    color:var(--color-light);
+    transform:scale(1.04,1.04);
+
+  }
+`
+
 export const EditorFooter = styled.div`
 display:flex;
 justify-content:space-between;
@@ -95,5 +109,9 @@ align-items:center;
 
 export const NotesWrapper = styled.div`
 padding:1rem;
-text-align: start;
+text-align: ${props => props.noNote ? "center" : "start"};
+`
+
+export const NoNotesMsg = styled.h1`
+  padding:1rem 0;
 `
