@@ -21,7 +21,7 @@ export const Archive = () => {
     <div className="section">
       {archive.length !== 0 ? (<NotesWrapper>
        { archive.map((eachnote) => (
-          <EachNote note={eachnote} key={eachnote._id} />
+          <EachNote note={eachnote} flag={"archive"} key={eachnote._id}  />
         ))}
         </NotesWrapper>
       ) : (

@@ -23,7 +23,7 @@ export const Home = () => {
         {notes.length !== 0 ? (
           <NotesWrapper>
             {notes.map((note) => (
-              <EachNote key={note._id} note={note} />
+              <EachNote key={note._id} flag={"home"} note={note} />
             ))}
           </NotesWrapper>
         ) : (

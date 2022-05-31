@@ -130,6 +130,17 @@ export const archiveNote = createAsyncThunk("notes/archiveNote", async (note,{re
     rejectWithValue(error)
   }
 })
+export const unarchiveNote = createAsyncThunk("notes/unarchiveNote", async (note,{rejectWithValue}) =>{
+  const encodedToken = localStorage.getItem("token");
+  const {_id} = note
+  try{
+    const response =await axios.post(`/api/archives/restore/${_id}`,{},{headers:{authorization:encodedToken}});
+    return response.data
+  }
+  catch(error){
+    rejectWithValue(error)
+  }
+})
 
 export const notesSlice = createSlice({
   name: "notes",
@@ -182,7 +193,14 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes
         state.archive = action.payload.archives
       })
-      .addCase(archiveNote,(state,action) => {
+      .addCase(archiveNote.rejected,(state,action) => {
+        console.log(action.payload);
+      })
+      .addCase(unarchiveNote.fulfilled,(state,action) =>{
+        state.notes = action.payload.notes
+        state.archive = action.payload.archives
+      })
+      .addCase(unarchiveNote.rejected,(state,action) => {
         console.log(action.payload);
       })
   },
