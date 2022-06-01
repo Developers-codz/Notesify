@@ -14,6 +14,7 @@ function App() {
   const {modalOpen} = useSelector(store => store.notes)
   return (
     <>{modalOpen && <EditorModal /> }
+     <ToastContainer />
     <div className="App" style={
           modalOpen
             ? { pointerEvents: "none", opacity: ".1" }
@@ -35,7 +36,7 @@ function App() {
      </Route>
      <Route path="/mockman" element={<MockMan />} />
      </Routes>
-      <ToastContainer />
+     
     </div>
     </>
   );

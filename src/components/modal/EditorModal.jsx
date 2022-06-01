@@ -24,6 +24,7 @@ import {
   createNoteHandler,
 } from "../../Redux/Reducers/notesSlice";
 import { useDispatch } from "react-redux";
+import { AlertToast } from "../toasts";
 
 const modules = {
   toolbar: [
@@ -64,9 +65,19 @@ export const EditorModal = () => {
   };
 
   const clickHandler = () => {
+    if(note.title === ""){
+      AlertToast("Please Enter Note Title")
+      return;
+    }
+    if(note.content === ""){
+      AlertToast("Please Enter note text")
+      return;
+    }
+   
     setEnable(false);
     const parsedData = parse(`${note.content}`).props.children;
     const today = new Date();
+    console.log(today)
     var timeStamp =
       today.getFullYear() +
       "-" +
