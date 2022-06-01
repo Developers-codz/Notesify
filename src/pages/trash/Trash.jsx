@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   NotesWrapper,
@@ -11,9 +11,17 @@ import { EachNote } from "../../components";
 
 export const Trash = () => {
   const { trash } = useSelector((store) => store.notes);
+  const [isLoading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
+  }, []);
   return (
     <div className="section">
-      {trash.length !== 0 ? (
+      {isLoading ? (
+        "Loading...."
+      ) : trash.length !== 0 ? (
         <NotesWrapper>
           {trash.map((eachTrash) => (
             <EachNote note={eachTrash} flag={"trash"} key={eachTrash._id} />

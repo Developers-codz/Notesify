@@ -8,9 +8,9 @@ import { EachNote } from "../../components/eachNote/EachNote";
 import { Logo } from "../../assets/icons";
 
 export const Home = () => {
-  const [isLoading,setLoading] = useState(true)
   const dispatch = useDispatch();
   const { modalOpen, notes } = useSelector((store) => store.notes);
+  const [isLoading,setLoading] = useState(true)
   useEffect(()=>{
     dispatch(getUserNotes())
   },[])

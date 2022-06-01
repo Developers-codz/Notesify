@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   NotesWrapper,
@@ -13,16 +13,25 @@ import { EachNote } from "../../components";
 export const Archive = () => {
   const { archive } = useSelector((store) => store.notes);
   const dispatch = useDispatch();
+  const [isLoading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 800);
+  }, []);
   useEffect(() => {
     dispatch(getArchiveNotes());
   }, []);
 
   return (
     <div className="section">
-      {archive.length !== 0 ? (<NotesWrapper>
-       { archive.map((eachnote) => (
-          <EachNote note={eachnote} flag={"archive"} key={eachnote._id}  />
-        ))}
+      {isLoading ? (
+        "loading...."
+      ) : archive.length !== 0 ? (
+        <NotesWrapper>
+          {archive.map((eachnote) => (
+            <EachNote note={eachnote} flag={"archive"} key={eachnote._id} />
+          ))}
         </NotesWrapper>
       ) : (
         <NotesWrapper noNote>
