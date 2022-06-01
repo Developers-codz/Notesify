@@ -5,12 +5,6 @@ import parse from "html-react-parser";
 import {
   EditorWrapper,
   TitleBox,
-  Pallette,
-  PinkButton,
-  BlueButton,
-  GreenButton,
-  YellowButton,
-  WhiteButton,
   ButtonToNote,
   CloseButton,
   EditorFooter,
@@ -24,6 +18,7 @@ import {
 } from "../../Redux/Reducers/notesSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AlertToast } from "../toasts";
+import { ColorPallete } from "../pallete/ColorPallete";
 
 export const EditModal = () => {
   const { noteToEdit } = useSelector((store) => store.notes);
@@ -95,13 +90,7 @@ export const EditModal = () => {
         />
         <Editor note={note} setNote={setNote} enable={enable} />
         <EditorFooter>
-          <Pallette>
-            <PinkButton onClick={() => setbgColor("lightpink")}></PinkButton>
-            <BlueButton onClick={() => setbgColor("lightblue")}></BlueButton>
-            <GreenButton onClick={() => setbgColor("lightgreen")}></GreenButton>
-            <YellowButton onClick={() => setbgColor("yellow")}></YellowButton>
-            <WhiteButton onClick={() => setbgColor("white")}></WhiteButton>
-          </Pallette>
+        <ColorPallete setbgColor={setbgColor} />
           <div>
             <CheckBoxInput
               type="checkbox"
