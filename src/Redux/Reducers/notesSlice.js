@@ -235,6 +235,26 @@ export const restoreNote = createAsyncThunk(
   }
 );
 
+export const deleteTrashNote = createAsyncThunk(
+  "notes/deleteTrashNote",
+  async (note, { rejectWithValue }) => {
+    const encodedToken = localStorage.getItem("token");
+    const { _id } = note;
+    try {
+      const response = await axios.delete(
+        `/api/trash/delete/${_id}`,
+        { headers: { authorization: encodedToken } }
+      );
+      AlertToast("Note deleted permanently");
+      return response.data;
+    } catch (error) {
+      console.log(error)
+      rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
 
 export const notesSlice = createSlice({
   name: "notes",
@@ -333,7 +353,7 @@ export const notesSlice = createSlice({
       .addCase(deleteArchiveNote.pending,(state)=>{
         state.isFetching = true;
       })
-      // Trash 
+      // Trash Reducers
 
       .addCase(getTrashNotes.fulfilled, (state, action) => {
         state.isFetching = false;
@@ -365,6 +385,16 @@ export const notesSlice = createSlice({
         console.log(action.payload);
       })
       .addCase(restoreNote.pending,(state)=>{
+        state.isFetching = true;
+      })
+      .addCase(deleteTrashNote.fulfilled,(state,action) =>{
+        state.isFetching = false;
+        state.trash = action.payload.trash;
+      })
+      .addCase(deleteTrashNote.rejected, (action) => {
+        console.log(action.payload);
+      })
+      .addCase(deleteTrashNote.pending,(state)=>{
         state.isFetching = true;
       })
   },

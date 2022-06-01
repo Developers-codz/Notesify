@@ -64,7 +64,6 @@ export const EditorModal = () => {
   };
 
   const clickHandler = () => {
-    console.log(note);
     setEnable(false);
     const parsedData = parse(`${note.content}`).props.children;
     const today = new Date();

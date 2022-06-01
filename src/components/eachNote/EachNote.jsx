@@ -25,6 +25,7 @@ import {
   deleteArchiveNote,
   trashNote,
   restoreNote,
+  deleteTrashNote
 } from "../../Redux/Reducers/notesSlice";
 
 export const EachNote = ({ note, flag }) => {
@@ -71,7 +72,7 @@ export const EachNote = ({ note, flag }) => {
               }
 
               if (flag === "trash") {
-                dispatch();
+                dispatch(deleteTrashNote(note));
               }
             }}
           >
