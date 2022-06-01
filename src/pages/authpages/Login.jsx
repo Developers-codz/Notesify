@@ -8,11 +8,14 @@ import {
   PrimaryButton,
   Para,
 } from "./AuthFormComponent";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/Reducers/authSlice";
 import { useState } from "react";
+
+
 export const Login = () => {
   const dispatch = useDispatch();
+  const {isFetching} = useSelector(store => store.notes)
   const [userDetail, setUserDetail] = useState({ email: "", password: "" });
   const changeHandler = (e) => {
     setUserDetail((prevDetail) => ({
@@ -22,12 +25,16 @@ export const Login = () => {
   };
 
   const clickHandler = (e) => {
-    dispatch(login( userDetail));
+    dispatch(login(userDetail));
     setUserDetail((prev) => ({ ...prev, email: "", password: "" }));
   };
-  const credentialHandler = ()=>{
-    setUserDetail((prev) => ({ ...prev, email: "kajal123@gmail.com", password: "kajalkumari123" }));
-  }
+  const credentialHandler = () => {
+    setUserDetail((prev) => ({
+      ...prev,
+      email: "kajal123@gmail.com",
+      password: "kajalkumari123",
+    }));
+  };
   const { email, password } = userDetail;
   return (
     <div className="section">
@@ -52,7 +59,7 @@ export const Login = () => {
           <Button value="credentialLogin" onClick={credentialHandler}>
             Login with Test Credential
           </Button>
-          <PrimaryButton primary onClick={(e) => clickHandler(e)}>
+          <PrimaryButton primary onClick={(e) => clickHandler(e)} disabled={isFetching}>
             Login
           </PrimaryButton>
           <Para>

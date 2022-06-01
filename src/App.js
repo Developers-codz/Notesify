@@ -4,13 +4,22 @@ import logo from "./logo.png";
 import GlobalStyle from "./globalStyles";
 import { ToastContainer, toast } from 'react-toastify';
 import {Landing, Login, SignUp,Home, Trash, Archive} from "./pages"
-import {Navbar,RequireAuth,RestrictAuth,Aside} from "./components"
+import {Navbar,RequireAuth,RestrictAuth,Aside,EditorModal} from "./components"
 import MockMan from "mockman-js";
 import {Routes,Route} from "react-router-dom"
+import { useSelector } from "react-redux";
 
 function App() {
+  
+  const {modalOpen} = useSelector(store => store.notes)
   return (
-    <div className="App">
+    <>{modalOpen && <EditorModal /> }
+     <ToastContainer />
+    <div className="App" style={
+          modalOpen
+            ? { pointerEvents: "none", opacity: ".1" }
+            : { pointerEvents: "auto", opacity: "1" }
+        } >
       <GlobalStyle />
        <Navbar />
        <Aside />
@@ -27,8 +36,9 @@ function App() {
      </Route>
      <Route path="/mockman" element={<MockMan />} />
      </Routes>
-      <ToastContainer />
+     
     </div>
+    </>
   );
 }
 

@@ -58,6 +58,9 @@ export const PrimaryButton = styled(Button)`
   padding: 0.5rem 8rem;
   background-color: var(--color-secondary-dark);
   color: var(--color-light);
+  &:disabled{
+    cursor:not-allowed;
+  }
 `;
 
 export const Para = styled.span`

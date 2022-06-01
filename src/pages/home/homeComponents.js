@@ -8,7 +8,10 @@ export const EditorWrapper = styled.div`
 width:40rem;
 height:22rem;
 border-radius: 20px;
-position: relative;
+position: fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 `
 
 export const TitleBox = styled.input`
@@ -66,7 +69,13 @@ export const WhiteButton = styled(PinkButton)`
 background-color:white;
 `
 
+export const CheckBoxInput = styled.input`
+margin:0 .3rem;
+`
 
+export const Checkboxlabel = styled.label`
+margin:.2rem;
+`
 export const ButtonToNote = styled.button`
 margin: 0 1rem;
   border: none;
@@ -84,8 +93,31 @@ margin: 0 1rem;
   }
 `
 
+export const ButtonToNoteNow = styled(ButtonToNote)`
+  background-color:var(--color-secondary-dark);
+  position:static;
+  padding:.5rem 1rem;
+  border-radius:20px;
+  margin:1rem 0;
+  color:var(--color-primary) !important;
+  &:hover{
+    color:var(--color-light);
+    transform:scale(1.04,1.04);
+
+  }
+`
+
 export const EditorFooter = styled.div`
 display:flex;
 justify-content:space-between;
 align-items:center;
+`
+
+export const NotesWrapper = styled.div`
+padding:1rem;
+text-align: ${props => props.noNote ? "center" : "start"};
+`
+
+export const NoNotesMsg = styled.h1`
+  padding:1rem 0;
 `

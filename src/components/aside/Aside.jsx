@@ -10,7 +10,7 @@ export const Aside = () => {
     pathname !== "/mockman" ? (
     <aside className="aside">
       <NavMenu>
-        <NavLinks to="/" exact >
+        <NavLinks to="/">
           <IconWrapper><HomeIcon height="2rem" width="2rem" /></IconWrapper>
           <NavItem>Home</NavItem>
         </NavLinks>
