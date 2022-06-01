@@ -181,7 +181,7 @@ export const deleteArchiveNote = createAsyncThunk(
 //  Trash Route
 
 export const getTrashNotes = createAsyncThunk(
-  "notes/getArchiveNotes",
+  "notes/getTrashNotes",
   async (mockParams, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
     try {
@@ -191,6 +191,45 @@ export const getTrashNotes = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const trashNote = createAsyncThunk(
+  "notes/trashNote",
+  async (note, { rejectWithValue }) => {
+    const encodedToken = localStorage.getItem("token");
+    const { _id } = note;
+    try {
+      const response = await axios.post(
+        `/api/notes/trash/${_id}`,
+        {},
+        { headers: { authorization: encodedToken } }
+      );
+      SuccessToast("Note Trash Successfully");
+      return response.data;
+    } catch (error) {
+      console.log(error)
+      rejectWithValue(error.response.data);
+    }
+  }
+);
+export const restoreNote = createAsyncThunk(
+  "notes/restoreNote",
+  async (note, { rejectWithValue }) => {
+    const encodedToken = localStorage.getItem("token");
+    const { _id } = note;
+    try {
+      const response = await axios.post(
+        `/api/trash/restore/${_id}`,
+        {},
+        { headers: { authorization: encodedToken } }
+      );
+      SuccessToast("Note Restored Successfully");
+      return response.data;
+    } catch (error) {
+      console.log(error)
       rejectWithValue(error.response.data);
     }
   }
@@ -304,6 +343,28 @@ export const notesSlice = createSlice({
         console.log(action.payload.errors);
       })
       .addCase(getTrashNotes.pending,(state)=>{
+        state.isFetching = true;
+      })
+      .addCase(trashNote.fulfilled,(state,action) =>{
+        state.isFetching = false;
+        state.notes = action.payload.notes;
+        state.trash = action.payload.trash;
+      })
+      .addCase(trashNote.rejected, (action) => {
+        console.log(action.payload);
+      })
+      .addCase(trashNote.pending,(state)=>{
+        state.isFetching = true;
+      })
+      .addCase(restoreNote.fulfilled,(state,action) =>{
+        state.isFetching = false;
+        state.notes = action.payload.notes;
+        state.trash = action.payload.trash;
+      })
+      .addCase(restoreNote.rejected, (action) => {
+        console.log(action.payload);
+      })
+      .addCase(restoreNote.pending,(state)=>{
         state.isFetching = true;
       })
   },

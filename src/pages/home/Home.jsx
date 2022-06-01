@@ -19,7 +19,6 @@ export const Home = () => {
       setLoading(false)
     },1000)
   },[])
-  console.log(notes)
   return (
     <>
      {isLoading ?<div className="section"> Loading.....</div>: <div className="section">
