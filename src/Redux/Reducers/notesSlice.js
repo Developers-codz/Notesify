@@ -177,6 +177,26 @@ export const deleteArchiveNote = createAsyncThunk(
     }
   }
 );
+
+//  Trash Route
+
+export const getTrashNotes = createAsyncThunk(
+  "notes/getArchiveNotes",
+  async (mockParams, { rejectWithValue }) => {
+    const encodedToken = localStorage.getItem("token");
+    try {
+      const response = await axios.get("/api/trash", {
+        headers: { authorization: encodedToken },
+      });
+
+      return response.data;
+    } catch (error) {
+      rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
 export const notesSlice = createSlice({
   name: "notes",
   initialState,
@@ -273,7 +293,19 @@ export const notesSlice = createSlice({
       })
       .addCase(deleteArchiveNote.pending,(state)=>{
         state.isFetching = true;
-      });
+      })
+      // Trash 
+
+      .addCase(getTrashNotes.fulfilled, (state, action) => {
+        state.isFetching = false;
+        state.trash = action.payload.trash;
+      })
+      .addCase(getTrashNotes.rejected, (action) => {
+        console.log(action.payload.errors);
+      })
+      .addCase(getTrashNotes.pending,(state)=>{
+        state.isFetching = true;
+      })
   },
 });
 export default notesSlice.reducer;
