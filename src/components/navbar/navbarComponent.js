@@ -45,3 +45,16 @@ export const IconWrapper = styled.div`
     cursor: pointer;
   }
 `;
+
+export  const DropDownMenu = styled.button`
+  cursor: pointer;
+  position:absolute;
+  right:35px;
+  top:50px;
+  padding: 0.3rem .5rem;
+  background-color:var(--color-primary);
+  border:none;
+  &:hover{
+    transform:scale(1.04,1.04)
+  }
+`
