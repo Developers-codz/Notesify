@@ -9,12 +9,13 @@ import {
   SearchWrapperIcon,
   IconWrapper,
   DropDownMenu,
-  Wrapper,} from "./navbarComponent";
-  import {logout} from "../../Redux/Reducers/authSlice"
-  import {useDispatch} from "react-redux"
+  Wrapper,
+} from "./navbarComponent";
+import { logout } from "../../Redux/Reducers/authSlice";
+import { useDispatch } from "react-redux";
 
 export const Navbar = () => {
-  const [isMenuOpen,setOpen] = useState(false)
+  const [isMenuOpen, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   return pathname !== "/landing" &&
@@ -35,10 +36,19 @@ export const Navbar = () => {
           </SearchWrapperIcon>
         </SearchWrapper>
 
-        <IconWrapper onClick={()=>setOpen(open => !open)}>
+        <IconWrapper onClick={() => setOpen((open) => !open)}>
           <LoginIcon />
         </IconWrapper>
-          {isMenuOpen && <DropDownMenu onClick={()=> dispatch(logout())}>Log Out</DropDownMenu>}
+        {isMenuOpen && (
+          <DropDownMenu
+            onClick={() => {
+              dispatch(logout());
+              setOpen(false)
+            }}
+          >
+            Log Out
+          </DropDownMenu>
+        )}
       </Header>
     </>
   ) : null;

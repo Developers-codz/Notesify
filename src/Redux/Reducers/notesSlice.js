@@ -4,10 +4,12 @@ import axios from "axios";
 const initialState = {
   userProfile: {},
   modalOpen: false,
+  editModalOpen:false,
   notes: [],
   archive: [],
   trash: [],
   isFetching:false,
+  noteToEdit:null,
 };
 
 export const getUserNotes = createAsyncThunk(
@@ -75,7 +77,7 @@ export const editNoteHandler = createAsyncThunk(
     const encodedToken = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        `/api/notes:${note._id}`,
+        `/api/notes/${note._id}`,
         { note },
         {
           headers: {
@@ -263,6 +265,12 @@ export const notesSlice = createSlice({
     handleToggleModal: (state, action) => {
       state.modalOpen = !state.modalOpen;
     },
+    handleToggleEditModal: (state) =>{
+      state.editModalOpen= !state.editModalOpen
+    },
+    setNoteToEdit: (state,action)=>{
+      state.noteToEdit = action.payload
+    }
   },
   extraReducers(builder) {
     builder
@@ -401,4 +409,4 @@ export const notesSlice = createSlice({
 });
 export default notesSlice.reducer;
 const { actions } = notesSlice;
-export const { handleToggleModal } = actions;
+export const { handleToggleModal,handleToggleEditModal,setNoteToEdit } = actions;

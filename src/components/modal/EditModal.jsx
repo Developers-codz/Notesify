@@ -1,7 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "../../pages/home/home.css";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import { Editor } from "../editor/Editor";
 import parse from "html-react-parser";
 import {
   EditorWrapper,
@@ -20,33 +19,24 @@ import {
 } from "../../pages/home/homeComponents";
 
 import {
-  handleToggleModal,
-  createNoteHandler,
+  handleToggleEditModal,
+  editNoteHandler
 } from "../../Redux/Reducers/notesSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AlertToast } from "../toasts";
 
-const modules = {
-  toolbar: [
-    [{ font: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [{ size: ["small", false, "large", "huge"] }],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["link", "image"],
-    [{ color: [] }, { align: [] }],
-  ],
-};
+export const EditModal = () => {
+  const { noteToEdit } = useSelector((store) => store.notes);
 
-const noModules = {
-  toolbar: false,
-};
-
-export const EditorModal = () => {
   const dispatch = useDispatch();
 
-  const [bgColor, setbgColor] = useState("whitesmoke");
-  const [note, setNote] = useState({ title: "", content: "", priority: "low" });
-  const [tags, setTags] = useState([]);
+  const [bgColor, setbgColor] = useState(noteToEdit.bgcolor);
+  const [note, setNote] = useState({
+    title: noteToEdit.title,
+    content: noteToEdit.content,
+    priority: noteToEdit.priority,
+  });
+  const [tags, setTags] = useState(noteToEdit.tags);
   const [enable, setEnable] = useState(true);
 
   const changeHandler = (e) => {
@@ -56,57 +46,41 @@ export const EditorModal = () => {
   const setTagsHandler = (e) => {
     const include = e.target.checked;
     const value = e.target.value;
-    if(include){
-      setTags([...tags,value])
-    }
-    else{
-      setTags([...tags.filter((tag) => tag != value)])
+    if (include) {
+      setTags([...tags, value]);
+    } else {
+      setTags([...tags.filter((tag) => tag != value)]);
     }
   };
 
   const clickHandler = () => {
-    if(note.title === ""){
-      AlertToast("Please Enter Note Title")
+    if (note.title === "") {
+      AlertToast("Please Enter Note Title");
       return;
     }
-    if(note.content === ""){
-      AlertToast("Please Enter note text")
+    if (note.content === "") {
+      AlertToast("Please Enter note text");
       return;
     }
-   
     setEnable(false);
     const parsedData = parse(`${note.content}`).props.children;
-    const today = new Date();
-    console.log(today)
-    var timeStamp =
-      today.getFullYear() +
-      "-" +
-      (today.getMonth() + 1) +
-      "-" +
-      today.getDate() +
-      " " +
-      today.getHours() +
-      ":" +
-      today.getMinutes() +
-      ":" +
-      today.getSeconds();
     dispatch(
-      createNoteHandler({
+        editNoteHandler({
+        _id:noteToEdit._id,
         title: note.title,
         content: parsedData,
-        timestamp: timeStamp,
         bgcolor: bgColor,
         priority: note.priority,
-        tags:tags,
+        tags: tags,
       })
     );
-    dispatch(handleToggleModal());
+    dispatch(handleToggleEditModal());
   };
 
   return (
     <>
       <EditorWrapper style={{ backgroundColor: bgColor }}>
-        <CloseButton onClick={() => dispatch(handleToggleModal())}>
+        <CloseButton onClick={() => dispatch(handleToggleEditModal())}>
           {" "}
           X
         </CloseButton>
@@ -119,14 +93,7 @@ export const EditorModal = () => {
           name="title"
           onChange={changeHandler}
         />
-        <ReactQuill
-          placeholder={"Add notes......"}
-          modules={enable ? modules : noModules}
-          height={"100px"}
-          value={note.content}
-          readOnly={!enable}
-          onChange={(e) => setNote((prev) => ({ ...prev, content: e }))}
-        />
+        <Editor note={note} setNote={setNote} enable={enable} />
         <EditorFooter>
           <Pallette>
             <PinkButton onClick={() => setbgColor("lightpink")}></PinkButton>
@@ -171,7 +138,7 @@ export const EditorModal = () => {
               <option value="High">High</option>
               <option value="Medium">Medium</option>
             </select>
-            <ButtonToNote onClick={clickHandler}>Add</ButtonToNote>
+            <ButtonToNote onClick={clickHandler}>Update</ButtonToNote>
           </div>
         </EditorFooter>
       </EditorWrapper>

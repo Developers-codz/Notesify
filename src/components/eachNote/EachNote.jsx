@@ -18,14 +18,14 @@ import {
 } from "../../assets/icons";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  handleToggleModal,
-  deleteNoteHandler,
   archiveNote,
   unarchiveNote,
   deleteArchiveNote,
   trashNote,
   restoreNote,
-  deleteTrashNote
+  deleteTrashNote,
+  handleToggleEditModal,
+  setNoteToEdit,
 } from "../../Redux/Reducers/notesSlice";
 
 export const EachNote = ({ note, flag }) => {
@@ -44,21 +44,28 @@ export const EachNote = ({ note, flag }) => {
         })}
         <IconContainer>
           {flag === "home" && (
-            <IconWrapper onClick={() => dispatch(handleToggleModal())}>
+            <IconWrapper
+              onClick={() => {
+                dispatch(handleToggleEditModal());
+                dispatch(setNoteToEdit(note))
+              }}
+            >
               <EditIcon />
             </IconWrapper>
           )}
-          { flag === "archive"? (
+          {flag === "archive" ? (
             <IconWrapper onClick={() => dispatch(unarchiveNote(note))}>
               <UnArchive width="1.5rem" height="1.5rem" />
             </IconWrapper>
-          ) : flag=== "home" ?  (
+          ) : flag === "home" ? (
             <IconWrapper onClick={() => dispatch(archiveNote(note))}>
               <ArchiveIcon width="1.5rem" height="1.5rem" />
             </IconWrapper>
-          ):""}
+          ) : (
+            ""
+          )}
           {flag === "trash" && (
-            <IconWrapper onClick={()=>dispatch(restoreNote(note))}>
+            <IconWrapper onClick={() => dispatch(restoreNote(note))}>
               <RestoreIcon />
             </IconWrapper>
           )}
