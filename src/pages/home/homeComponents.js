@@ -69,7 +69,13 @@ export const WhiteButton = styled(PinkButton)`
 background-color:white;
 `
 
+export const CheckBoxInput = styled.input`
+margin:0 .3rem;
+`
 
+export const Checkboxlabel = styled.label`
+margin:.2rem;
+`
 export const ButtonToNote = styled.button`
 margin: 0 1rem;
   border: none;

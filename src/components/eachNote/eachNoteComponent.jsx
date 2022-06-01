@@ -20,11 +20,12 @@ export const NoteText = styled.p`
 export const CreationTime = styled.p`
     
 `
-export const Priority = styled.button`
-padding:.4rem 1rem;
+export const Priority = styled.div`
+padding:.3rem 1rem;
 background-color: var(--color-primary);
 border: none;
 border-radius:10px;
+margin:0 .5rem 0 0;
 `
 export const Footer = styled.div`
     display:flex;

@@ -26,7 +26,7 @@ import {
 
 export const EachNote = ({ note, flag }) => {
   const dispatch = useDispatch();
-  const { title, content, timestamp, priority, _id } = note;
+  const { title, content, timestamp, priority, _id,tags } = note;
 
   return (
     <NoteCard style={{ backgroundColor: note.bgcolor }}>
@@ -35,6 +35,11 @@ export const EachNote = ({ note, flag }) => {
       <CreationTime>Created at: {timestamp}</CreationTime>
       <Footer>
         <Priority>{priority}</Priority>
+        {tags.map((tag,i )=> {
+          return (
+            <Priority key={i}>{tag}</Priority>
+          )
+        })}
         <IconContainer>
           <IconWrapper onClick={() => dispatch(handleToggleModal())}>
             <EditIcon />

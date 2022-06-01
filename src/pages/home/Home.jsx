@@ -14,6 +14,7 @@ export const Home = () => {
   useEffect(()=>{
     dispatch(getUserNotes())
   },[])
+  console.log(notes)
   return (
     <>
       <div className="section">
