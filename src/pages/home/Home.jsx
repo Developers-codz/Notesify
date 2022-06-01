@@ -8,16 +8,21 @@ import { EachNote } from "../../components/eachNote/EachNote";
 import { Logo } from "../../assets/icons";
 
 export const Home = () => {
-
+  const [isLoading,setLoading] = useState(true)
   const dispatch = useDispatch();
   const { modalOpen, notes } = useSelector((store) => store.notes);
   useEffect(()=>{
     dispatch(getUserNotes())
   },[])
+  useEffect(()=>{
+    setTimeout(()=>{
+      setLoading(false)
+    },1000)
+  },[])
   console.log(notes)
   return (
     <>
-      <div className="section">
+     {isLoading ?<div className="section"> Loading.....</div>: <div className="section">
         <ButtonToNote addNotes onClick={() => dispatch(handleToggleModal())}>
           Add Note
         </ButtonToNote>
@@ -36,7 +41,7 @@ export const Home = () => {
         </ButtonToNoteNow>
          </NotesWrapper>
         )}
-      </div>
+      </div>}
     </>
   );
 };

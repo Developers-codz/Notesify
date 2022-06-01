@@ -8,13 +8,13 @@ import {
   Para,
 } from "./AuthFormComponent";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { signup } from "../../Redux/Reducers/authSlice";
 import { AlertToast } from "../../components/toasts";
 
 export const SignUp = () => {
   const dispatch = useDispatch();
-
+  const {isFetching} = useSelector(store => store.notes)
   const [userDetail, setUserDetail] = useState({
     firstname: "",
     lastname: "",
@@ -96,7 +96,7 @@ export const SignUp = () => {
             onChange={(e) => setPassMatch(e.target.value)}
           />
 
-          <PrimaryButton primary onClick={(e) => clickHandler(e)}>
+          <PrimaryButton primary onClick={(e) => clickHandler(e)} disabled={isFetching}>
             SignUp
           </PrimaryButton>
           <Para>
