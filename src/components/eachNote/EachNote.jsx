@@ -16,7 +16,7 @@ import {
   UnArchive,
   RestoreIcon,
 } from "../../assets/icons";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   archiveNote,
   unarchiveNote,
@@ -30,13 +30,13 @@ import {
 
 export const EachNote = ({ note, flag }) => {
   const dispatch = useDispatch();
-  const { title, content, timestamp, priority, _id, tags } = note;
+  const { title, content,  priority, _id, tags,date,time } = note;
 
   return (
     <NoteCard style={{ backgroundColor: note.bgcolor }}>
       <Title>{title}</Title>
       <NoteText>{content}</NoteText>
-      <CreationTime>Created at: {timestamp}</CreationTime>
+      <CreationTime>Created at: {date}{" "}{time}  </CreationTime>
       <Footer>
         <Priority>{priority}</Priority>
         {tags.map((tag, i) => {

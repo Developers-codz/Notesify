@@ -55,26 +55,11 @@ export const CreateModal = () => {
       return;
     }
     setEnable(false);
-    const parsedData = parse(`${note.content}`).props.children;
-    const today = new Date();
-    console.log(today)
-    var timeStamp =
-      today.getFullYear() +
-      "-" +
-      (today.getMonth() + 1) +
-      "-" +
-      today.getDate() +
-      " " +
-      today.getHours() +
-      ":" +
-      today.getMinutes() +
-      ":" +
-      today.getSeconds();
+    const parsedData = parse(`${note.content}`).props.children; 
     dispatch(
       createNoteHandler({
         title: note.title,
         content: parsedData,
-        timestamp: timeStamp,
         bgcolor: bgColor,
         priority: note.priority,
         tags:tags,

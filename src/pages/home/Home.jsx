@@ -15,7 +15,7 @@ export const Home = () => {
   const [isLoading,setLoading] = useState(true)
   const priorityNotes = getPrioritySorted(notes,byPriority)
   const tagSortedNotes = getTagsSortedData(priorityNotes,byTags)
-
+  console.log(notes)
   useEffect(()=>{
     dispatch(getUserNotes())
   },[])
