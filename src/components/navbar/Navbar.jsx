@@ -19,6 +19,7 @@ import { logout } from "../../Redux/Reducers/authSlice";
 import {
   setByPriority,
   setByTags,
+  setByDate,
   clearFilters,
 } from "../../Redux/Reducers/notesSlice";
 import { useDispatch } from "react-redux";
@@ -33,6 +34,9 @@ export const Navbar = () => {
   const priorityHandler = (e) => {
     dispatch(setByPriority(e.target.value));
   };
+  const dateHandler = (e) =>{
+    dispatch(setByDate(e.target.value))
+  }
 
   const tagsHandler = (e) => {
     const currentTag = e.target.value;
@@ -137,9 +141,9 @@ export const Navbar = () => {
               <h3>Filter by Date</h3>
             </FilterHead>
             <FilterOptions>
-              <input type="radio" id="old" name="priority" value="old" />
+              <input type="radio" id="old" name="date" value="old" onClick={dateHandler} />
               <label htmlFor="old">Oldest First</label>
-              <input type="radio" id="new" name="priority" value="new" />
+              <input type="radio" id="new" name="date" value="new" onClick={dateHandler} />
               <label htmlFor="new">Newest First</label>
             </FilterOptions>
             <ClearButton onClick={() => dispatch(clearFilters())}>

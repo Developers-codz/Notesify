@@ -8,14 +8,16 @@ import { EachNote } from "../../components/eachNote/EachNote";
 import { Logo } from "../../assets/icons";
 import {getPrioritySorted} from "../../functions/getPrioritySorted"
 import { getTagsSortedData } from "../../functions/getTagsSortedData";
+import { getSortedData } from "../../functions/getSortedData";
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const {  notes,byPriority ,byTags} = useSelector((store) => store.notes);
+  const {  notes,byPriority ,byTags,byDate} = useSelector((store) => store.notes);
   const [isLoading,setLoading] = useState(true)
   const priorityNotes = getPrioritySorted(notes,byPriority)
   const tagSortedNotes = getTagsSortedData(priorityNotes,byTags)
-  console.log(notes)
+  const sortedData = getSortedData(tagSortedNotes,byDate)
+
   useEffect(()=>{
     dispatch(getUserNotes())
   },[])
@@ -32,7 +34,7 @@ export const Home = () => {
         </ButtonToNote>
         {notes.length !== 0 ? (
           <NotesWrapper>
-            {tagSortedNotes.map((note) => (
+            {sortedData.map((note) => (
               <EachNote key={note._id} flag={"home"} note={note} />
             ))}
           </NotesWrapper>

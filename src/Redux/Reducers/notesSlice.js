@@ -277,9 +277,13 @@ export const notesSlice = createSlice({
     setByTags:(state,action) =>{
       state.byTags = action.payload;
     },
+    setByDate:(state,action) =>{
+      state.byDate = action.payload;
+    },
     clearFilters:(state) =>{
       state.byPriority = null;
       state.byTags = [];
+      state.byDate = null;
     }
   },
   extraReducers(builder) {
@@ -426,4 +430,5 @@ export const {
   setByPriority,
   setByTags,
   clearFilters,
+  setByDate
 } = actions;
