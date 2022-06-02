@@ -17,7 +17,7 @@ export const Archive = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 800);
+    }, 500);
   }, []);
   useEffect(() => {
     dispatch(getArchiveNotes());

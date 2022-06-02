@@ -22,10 +22,6 @@ export const Aside = () => {
           <IconWrapper><TrashIcon height="2rem" width="2rem" /></IconWrapper>
           <NavItem>Trash</NavItem>
         </NavLinks>
-        <NavLinks to="/settings" exact >
-          <IconWrapper><SettingsIcon height="2rem" width="2rem" /></IconWrapper>
-          <NavItem>Settings</NavItem>
-        </NavLinks>
       </NavMenu>
     </aside>
   ) : null;

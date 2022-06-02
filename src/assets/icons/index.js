@@ -8,3 +8,4 @@ export {ArchiveIcon,ProfileIcon,HomeIcon,TrashIcon,SettingsIcon} from "./navigat
 export {VerticalDots} from "./VerticalDots"
 export {UnArchive} from "./UnArchive"
 export {RestoreIcon} from "./RestoreIcon"
+export {FilterIcon} from "./FilterIcon"

@@ -15,7 +15,7 @@ export const Trash = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 800);
+    }, 500);
   }, []);
   return (
     <div className="section">

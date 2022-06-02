@@ -26,7 +26,7 @@ export const CreateModal = () => {
   const dispatch = useDispatch();
 
   const [bgColor, setbgColor] = useState("whitesmoke");
-  const [note, setNote] = useState({ title: "", content: "", priority: "low" });
+  const [note, setNote] = useState({ title: "", content: "", priority: "Low" });
   const [tags, setTags] = useState([]);
   const [enable, setEnable] = useState(true);
 

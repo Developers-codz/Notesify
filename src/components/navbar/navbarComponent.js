@@ -4,6 +4,7 @@ export const Header = styled.div`
   width: 100vw;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   z-index: 3;
 `;
@@ -37,19 +38,29 @@ export const SearchWrapperIcon = styled.div`
   right: 15px;
 `;
 export const IconWrapper = styled.div`
-  margin: 0.1rem 1rem;
+  margin: 0.1rem 2rem ;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 7vw;
   > * {
     cursor: pointer;
   }
 `;
 
+export const FilterMenu = styled.div`
+  z-index:4;
+  right:7rem;
+  top:80px;
+  position:absolute;
+  width:20rem;
+  height:20rem;
+  border:1px solid black;
+`
+
 export  const DropDownMenu = styled.button`
   cursor: pointer;
   position:absolute;
-  right:35px;
+  right:2px;
   top:50px;
   padding: 0.3rem .5rem;
   background-color:var(--color-primary);
@@ -57,4 +68,30 @@ export  const DropDownMenu = styled.button`
   &:hover{
     transform:scale(1.04,1.04)
   }
+`
+export const FilterHead = styled.div`
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height:15%;
+
+  `
+export const FilterOptions = styled.div`
+margin:.5rem 0 1rem 0;
+  & > label {
+    margin:1rem 1rem 0 0.2rem;
+    
+  }
+`
+export const ClearButton = styled.button`
+z-index:1;
+background-color: var(--color-primary);
+border:none;
+padding:.5rem 1rem;
+
+cursor:pointer;
+
+&:hover{
+  transform:scale(1.03,1.03)
+}
 `
