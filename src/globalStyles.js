@@ -3,6 +3,7 @@ import styled,{createGlobalStyle} from "styled-components"
 const GlobalStyle = createGlobalStyle`
 html{
   --color-primary:#f1e9e7;
+  --bg-primary:#f2efeb;
   --color-secondary:#d6806a;
   --color-secondary-dark:#ca2535;
   --color-light:#fff;
@@ -15,7 +16,7 @@ html{
   background-color: #28231d;
 }
 .light{
-  background-color: #f2efeb;
+  background-color:var(--bg-primary) ;
 }
 *{
     box-sizing: border-box;

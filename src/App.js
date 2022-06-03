@@ -9,14 +9,16 @@ import {Navbar,RequireAuth,RestrictAuth,Aside,CreateModal,EditModal} from "./com
 import MockMan from "mockman-js";
 import {Routes,Route} from "react-router-dom"
 import { useSelector,useDispatch } from "react-redux";
-import {checkToken} from "./Redux/Reducers/authSlice"
+import {checkToken,login} from "./Redux/Reducers/authSlice"
 
 function App() {
   
   const {modalOpen,editModalOpen} = useSelector(store => store.notes)
   const dispatch = useDispatch();
   useEffect(()=>{
+   
     dispatch(checkToken());
+
   },[])
   
   return (

@@ -55,6 +55,7 @@ export const FilterMenu = styled.div`
   width:20rem;
   height:20rem;
   border:1px solid black;
+  background-color: var(--bg-primary);
 `
 
 export  const DropDownMenu = styled.button`
