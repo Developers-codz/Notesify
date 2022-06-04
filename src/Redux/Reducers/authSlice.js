@@ -37,10 +37,8 @@ export const checkToken = createAsyncThunk("auth/checkToken", async (_,{rejectWi
         const response = await axios.post("/api/auth/verify", {
           encodedToken: encodedToken,
         });
-        console.log(response)
         return response.data;
       } catch (error) {
-        console.log(error.response);
         rejectWithValue(error)
       }
     }
@@ -69,11 +67,10 @@ const authSlice = createSlice({
           })
         .addCase(signup.fulfilled,(state,action) => {
             localStorage.setItem("token",action.payload.encodedToken)
-            localStorage.setItem("userDetail",action.payload.createdUser)
             state.currentUser = action.payload.createdUser
         })
         .addCase(signup.rejected,(state,action) =>{
-        
+            AlertToast(`${action.payload.errors}`);
         })
         .addCase(checkToken.fulfilled,(state,action)=>{
             if(action.payload){
