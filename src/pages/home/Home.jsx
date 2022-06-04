@@ -6,9 +6,8 @@ import { handleToggleModal,getUserNotes } from "../../Redux/Reducers/notesSlice"
 import { useDispatch } from "react-redux";
 import { EachNote } from "../../components/eachNote/EachNote";
 import { Logo } from "../../assets/icons";
-import {getPrioritySorted} from "../../functions/getPrioritySorted"
-import { getTagsSortedData } from "../../functions/getTagsSortedData";
-import { getSortedData } from "../../functions/getSortedData";
+import {getPrioritySorted,getTagsSortedData,getSortedData,useDocumentTitle} from "../../functions"
+
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -17,7 +16,7 @@ export const Home = () => {
   const priorityNotes = getPrioritySorted(notes,byPriority)
   const tagSortedNotes = getTagsSortedData(priorityNotes,byTags)
   const sortedData = getSortedData(tagSortedNotes,byDate)
-
+  useDocumentTitle("Home")
   useEffect(()=>{
     dispatch(getUserNotes())
   },[])

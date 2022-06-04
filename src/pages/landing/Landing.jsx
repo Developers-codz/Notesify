@@ -1,7 +1,9 @@
 import {Wrapper,Section,HeroImg,Header,Para,Button} from "./landingComponents"
 import landinheroImg from "../../assets/images/Notes-bro.png"
 import {Logo} from "../../assets/icons/Logo"
+import {useDocumentTitle} from "../../functions"
 export const Landing = () =>{
+    useDocumentTitle("Landing")
     return (
         <Wrapper>
             <Section>

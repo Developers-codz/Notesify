@@ -9,8 +9,10 @@ import { ArchiveIcon } from "../../assets/icons";
 import { Link } from "react-router-dom";
 import { getArchiveNotes } from "../../Redux/Reducers/notesSlice";
 import { EachNote } from "../../components";
+import {useDocumentTitle} from "../../functions"
 
 export const Archive = () => {
+  useDocumentTitle("Archive")
   const { archive } = useSelector((store) => store.notes);
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
