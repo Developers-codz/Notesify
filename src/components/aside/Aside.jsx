@@ -14,17 +14,13 @@ export const Aside = () => {
           <IconWrapper><HomeIcon height="2rem" width="2rem" /></IconWrapper>
           <NavItem>Home</NavItem>
         </NavLinks>
-        <NavLinks to="/archive" exact >
+        <NavLinks to="/archive" >
           <IconWrapper><ArchiveIcon height="2rem" width="2rem" /></IconWrapper>
           <NavItem>Archive</NavItem>
         </NavLinks>
-        <NavLinks to="/trash" exact >
+        <NavLinks to="/trash" >
           <IconWrapper><TrashIcon height="2rem" width="2rem" /></IconWrapper>
           <NavItem>Trash</NavItem>
-        </NavLinks>
-        <NavLinks to="/settings" exact >
-          <IconWrapper><SettingsIcon height="2rem" width="2rem" /></IconWrapper>
-          <NavItem>Settings</NavItem>
         </NavLinks>
       </NavMenu>
     </aside>

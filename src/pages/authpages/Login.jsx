@@ -11,9 +11,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/Reducers/authSlice";
 import { useState } from "react";
+import {useDocumentTitle} from "../../functions"
 
 
 export const Login = () => {
+  useDocumentTitle("Login")
   const dispatch = useDispatch();
   const {isFetching} = useSelector(store => store.notes)
   const [userDetail, setUserDetail] = useState({ email: "", password: "" });

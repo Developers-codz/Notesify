@@ -1,17 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "../../pages/home/home.css";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import parse from "html-react-parser";
+import { Editor } from "../editor/Editor";
+
 import {
   EditorWrapper,
   TitleBox,
-  Pallette,
-  PinkButton,
-  BlueButton,
-  GreenButton,
-  YellowButton,
-  WhiteButton,
   ButtonToNote,
   CloseButton,
   EditorFooter,
@@ -25,79 +18,49 @@ import {
 } from "../../Redux/Reducers/notesSlice";
 import { useDispatch } from "react-redux";
 import { AlertToast } from "../toasts";
+import { ColorPallete } from "../pallete/ColorPallete";
 
-const modules = {
-  toolbar: [
-    [{ font: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [{ size: ["small", false, "large", "huge"] }],
-    [{ list: "ordered" }, { list: "bullet" }],
-    ["link", "image"],
-    [{ color: [] }, { align: [] }],
-  ],
-};
-
-const noModules = {
-  toolbar: false,
-};
-
-export const EditorModal = () => {
+export const CreateModal = () => {
   const dispatch = useDispatch();
 
   const [bgColor, setbgColor] = useState("whitesmoke");
-  const [note, setNote] = useState({ title: "", content: "", priority: "low" });
+  const [note, setNote] = useState({ title: "", content: "", priority: "Low" });
   const [tags, setTags] = useState([]);
-  const [enable, setEnable] = useState(true);
 
   const changeHandler = (e) => {
     setNote((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+
+
   const setTagsHandler = (e) => {
     const include = e.target.checked;
     const value = e.target.value;
-    if(include){
-      setTags([...tags,value])
-    }
-    else{
-      setTags([...tags.filter((tag) => tag != value)])
+    if (include) {
+      setTags([...tags, value]);
+    } else {
+      setTags([...tags.filter((tag) => tag != value)]);
     }
   };
 
   const clickHandler = () => {
-    if(note.title === ""){
-      AlertToast("Please Enter Note Title")
+    if (note.title === "") {
+      AlertToast("Please Enter Note Title");
       return;
     }
-    if(note.content === ""){
-      AlertToast("Please Enter note text")
+    if (note.content === "") {
+      AlertToast("Please Enter note text");
       return;
     }
-   
-    setEnable(false);
-    const parsedData = parse(`${note.content}`).props.children;
-    const today = new Date();
-    console.log(today)
-    var timeStamp =
-      today.getFullYear() +
-      "-" +
-      (today.getMonth() + 1) +
-      "-" +
-      today.getDate() +
-      " " +
-      today.getHours() +
-      ":" +
-      today.getMinutes() +
-      ":" +
-      today.getSeconds();
+    const parsedData = note.content
+    console.log(parsedData)
     dispatch(
       createNoteHandler({
         title: note.title,
         content: parsedData,
-        timestamp: timeStamp,
         bgcolor: bgColor,
         priority: note.priority,
-        tags:tags,
+        tags: tags,
       })
     );
     dispatch(handleToggleModal());
@@ -119,22 +82,9 @@ export const EditorModal = () => {
           name="title"
           onChange={changeHandler}
         />
-        <ReactQuill
-          placeholder={"Add notes......"}
-          modules={enable ? modules : noModules}
-          height={"100px"}
-          value={note.content}
-          readOnly={!enable}
-          onChange={(e) => setNote((prev) => ({ ...prev, content: e }))}
-        />
+        <Editor note={note} setNote={setNote} />
         <EditorFooter>
-          <Pallette>
-            <PinkButton onClick={() => setbgColor("lightpink")}></PinkButton>
-            <BlueButton onClick={() => setbgColor("lightblue")}></BlueButton>
-            <GreenButton onClick={() => setbgColor("lightgreen")}></GreenButton>
-            <YellowButton onClick={() => setbgColor("yellow")}></YellowButton>
-            <WhiteButton onClick={() => setbgColor("white")}></WhiteButton>
-          </Pallette>
+          <ColorPallete setbgColor={setbgColor} />
           <div>
             <CheckBoxInput
               type="checkbox"

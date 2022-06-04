@@ -6,18 +6,20 @@ export const HomeWrapper = styled.div`
 
 export const EditorWrapper = styled.div`
 width:40rem;
-height:22rem;
+height:23rem;
 border-radius: 20px;
 position: fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
+border:2px solid black;
+z-index:2;
 `
 
 export const TitleBox = styled.input`
-width:inherit;
+width:98%;
 font-size:1.4rem;
-padding:.5rem 1rem;
+padding:.5rem .8rem;
 outline: none;
 border:none;
 margin-top:1rem;
@@ -31,6 +33,7 @@ right:-15px;
 padding:.4rem .5rem;
 border:2px solid var(--color-secondary-dark);
 border-radius:50%;
+z-index:3;
 &:hover{
   color:var(--color-light);
   transform: scale(1.02,1.02);
@@ -39,35 +42,6 @@ border-radius:50%;
 }
 `
 
-export const Pallette = styled.div`
-display:flex;
-justify-content:start;
-align-items:center;
-padding-left:1rem;
-`
-export const PinkButton = styled.button`
-width:20px;
-height:20px;
-border-radius: 50%;
-background-color: pink;
-cursor:pointer;
-margin:.3rem;
-border:1px solid black;
-`
-
-export const BlueButton = styled(PinkButton)`
-background-color:lightblue
-`
-
-export const YellowButton = styled(PinkButton)`
-background-color:yellow
-`
-export const GreenButton = styled(PinkButton)`
-background-color:green
-`
-export const WhiteButton = styled(PinkButton)`
-background-color:white;
-`
 
 export const CheckBoxInput = styled.input`
 margin:0 .3rem;
@@ -85,8 +59,8 @@ margin: 0 1rem;
   cursor: pointer;
   font-size: 1.1rem;
   position:${(props) => props.addNotes ? "fixed":""};
-  bottom:${(props) => props.addNotes ? "20px":""};
-  right:${(props) => props.addNotes ? "20px":""};
+  bottom:${(props) => props.addNotes ? "40px":""};
+  right:${(props) => props.addNotes ? "30px":""};
   &:hover {
     transform: scale(1.03, 1.03);
     color:var( --primary-cta) !important;

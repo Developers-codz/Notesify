@@ -11,8 +11,10 @@ import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { signup } from "../../Redux/Reducers/authSlice";
 import { AlertToast } from "../../components/toasts";
+import {useDocumentTitle} from "../../functions"
 
 export const SignUp = () => {
+  useDocumentTitle("Signup")
   const dispatch = useDispatch();
   const {isFetching} = useSelector(store => store.notes)
   const [userDetail, setUserDetail] = useState({

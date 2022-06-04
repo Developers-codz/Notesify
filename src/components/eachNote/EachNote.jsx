@@ -1,4 +1,5 @@
 import React from "react";
+import parse from "html-react-parser";
 import {
   NoteCard,
   Title,
@@ -16,27 +17,35 @@ import {
   UnArchive,
   RestoreIcon,
 } from "../../assets/icons";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  handleToggleModal,
-  deleteNoteHandler,
   archiveNote,
   unarchiveNote,
   deleteArchiveNote,
   trashNote,
   restoreNote,
-  deleteTrashNote
+  deleteTrashNote,
+  handleToggleEditModal,
+  setNoteToEdit,
 } from "../../Redux/Reducers/notesSlice";
 
 export const EachNote = ({ note, flag }) => {
   const dispatch = useDispatch();
-  const { title, content, timestamp, priority, _id, tags } = note;
+  const { title, content,  priority, _id, tags,date,time } = note;
+
+  const options = {
+    replace: (domNode) => {
+      if (domNode.attribs && domNode.attribs.class === 'remove') {
+        return <></>;
+      }
+    },
+  };
 
   return (
     <NoteCard style={{ backgroundColor: note.bgcolor }}>
       <Title>{title}</Title>
-      <NoteText>{content}</NoteText>
-      <CreationTime>Created at: {timestamp}</CreationTime>
+      <NoteText>{parse(content,options)}</NoteText>
+      <CreationTime>Created at: {date}{" "}{time}  </CreationTime>
       <Footer>
         <Priority>{priority}</Priority>
         {tags.map((tag, i) => {
@@ -44,21 +53,28 @@ export const EachNote = ({ note, flag }) => {
         })}
         <IconContainer>
           {flag === "home" && (
-            <IconWrapper onClick={() => dispatch(handleToggleModal())}>
+            <IconWrapper
+              onClick={() => {
+                dispatch(handleToggleEditModal());
+                dispatch(setNoteToEdit(note))
+              }}
+            >
               <EditIcon />
             </IconWrapper>
           )}
-          { flag === "archive"? (
+          {flag === "archive" ? (
             <IconWrapper onClick={() => dispatch(unarchiveNote(note))}>
               <UnArchive width="1.5rem" height="1.5rem" />
             </IconWrapper>
-          ) : flag=== "home" ?  (
+          ) : flag === "home" ? (
             <IconWrapper onClick={() => dispatch(archiveNote(note))}>
               <ArchiveIcon width="1.5rem" height="1.5rem" />
             </IconWrapper>
-          ):""}
+          ) : (
+            ""
+          )}
           {flag === "trash" && (
-            <IconWrapper onClick={()=>dispatch(restoreNote(note))}>
+            <IconWrapper onClick={() => dispatch(restoreNote(note))}>
               <RestoreIcon />
             </IconWrapper>
           )}

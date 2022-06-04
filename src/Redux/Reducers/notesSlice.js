@@ -1,18 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { SuccessToast,AlertToast } from "../../components/toasts";
+import { SuccessToast, AlertToast } from "../../components/toasts";
 import axios from "axios";
 const initialState = {
   userProfile: {},
   modalOpen: false,
+  editModalOpen: false,
   notes: [],
   archive: [],
   trash: [],
-  isFetching:false,
+  isFetching: false,
+  noteToEdit: null,
+  byPriority: null,
+  byTags: [],
+  byDate: null,
 };
 
 export const getUserNotes = createAsyncThunk(
   "/notes/getUserNotes",
-  async (mockParams,{rejectWithValue}) => {
+  async (mockParams, { rejectWithValue }) => {
     const encodedToken = localStorage.getItem("token");
     try {
       const response = await axios.get("/api/notes", {
@@ -75,7 +80,7 @@ export const editNoteHandler = createAsyncThunk(
     const encodedToken = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        `/api/notes:${note._id}`,
+        `/api/notes/${note._id}`,
         { note },
         {
           headers: {
@@ -210,7 +215,7 @@ export const trashNote = createAsyncThunk(
       SuccessToast("Note Trash Successfully");
       return response.data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       rejectWithValue(error.response.data);
     }
   }
@@ -229,7 +234,7 @@ export const restoreNote = createAsyncThunk(
       SuccessToast("Note Restored Successfully");
       return response.data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       rejectWithValue(error.response.data);
     }
   }
@@ -241,20 +246,17 @@ export const deleteTrashNote = createAsyncThunk(
     const encodedToken = localStorage.getItem("token");
     const { _id } = note;
     try {
-      const response = await axios.delete(
-        `/api/trash/delete/${_id}`,
-        { headers: { authorization: encodedToken } }
-      );
+      const response = await axios.delete(`/api/trash/delete/${_id}`, {
+        headers: { authorization: encodedToken },
+      });
       AlertToast("Note deleted permanently");
       return response.data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       rejectWithValue(error.response.data);
     }
   }
 );
-
-
 
 export const notesSlice = createSlice({
   name: "notes",
@@ -263,6 +265,26 @@ export const notesSlice = createSlice({
     handleToggleModal: (state, action) => {
       state.modalOpen = !state.modalOpen;
     },
+    handleToggleEditModal: (state) => {
+      state.editModalOpen = !state.editModalOpen;
+    },
+    setNoteToEdit: (state, action) => {
+      state.noteToEdit = action.payload;
+    },
+    setByPriority: (state, action) => {
+      state.byPriority = action.payload;
+    },
+    setByTags:(state,action) =>{
+      state.byTags = action.payload;
+    },
+    setByDate:(state,action) =>{
+      state.byDate = action.payload;
+    },
+    clearFilters:(state) =>{
+      state.byPriority = null;
+      state.byTags = [];
+      state.byDate = null;
+    }
   },
   extraReducers(builder) {
     builder
@@ -277,7 +299,7 @@ export const notesSlice = createSlice({
       .addCase(getUserNotes.rejected, (action) => {
         console.log(action.payload.errors);
       })
-      .addCase(getUserNotes.pending,(state)=>{
+      .addCase(getUserNotes.pending, (state) => {
         state.isFetching = true;
       })
 
@@ -286,17 +308,17 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes;
       })
       .addCase(createNoteHandler.rejected, (action) => {
-       console.log(action.payload.errors);
+        console.log(action.payload.errors);
       })
-      .addCase(createNoteHandler.pending,(state)=>{
+      .addCase(createNoteHandler.pending, (state) => {
         state.isFetching = true;
       })
-  
+
       .addCase(editNoteHandler.fulfilled, (state, action) => {
         state.notes = action.payload.notes;
       })
       .addCase(editNoteHandler.rejected, (state, action) => {
-       console.log(action.payload.errors);
+        console.log(action.payload.errors);
       })
 
       .addCase(deleteNoteHandler.fulfilled, (state, action) => {
@@ -304,9 +326,9 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes;
       })
       .addCase(deleteNoteHandler.rejected, (action) => {
-       console.log(action.payload.errors);
+        console.log(action.payload.errors);
       })
-      .addCase(deleteNoteHandler.pending,(state)=>{
+      .addCase(deleteNoteHandler.pending, (state) => {
         state.isFetching = true;
       })
       // Archive reducers
@@ -317,7 +339,7 @@ export const notesSlice = createSlice({
       .addCase(getArchiveNotes.rejected, (action) => {
         console.log(action.payload.errors);
       })
-      .addCase(getArchiveNotes.pending,(state)=>{
+      .addCase(getArchiveNotes.pending, (state) => {
         state.isFetching = true;
       })
 
@@ -329,7 +351,7 @@ export const notesSlice = createSlice({
       .addCase(archiveNote.rejected, (action) => {
         console.log(action.payload.errors);
       })
-      .addCase(archiveNote.pending,(state)=>{
+      .addCase(archiveNote.pending, (state) => {
         state.isFetching = true;
       })
       .addCase(unarchiveNote.fulfilled, (state, action) => {
@@ -340,7 +362,7 @@ export const notesSlice = createSlice({
       .addCase(unarchiveNote.rejected, (action) => {
         console.log(action.payload.errors);
       })
-      .addCase(unarchiveNote.pending,(state)=>{
+      .addCase(unarchiveNote.pending, (state) => {
         state.isFetching = true;
       })
       .addCase(deleteArchiveNote.fulfilled, (state, action) => {
@@ -350,7 +372,7 @@ export const notesSlice = createSlice({
       .addCase(deleteArchiveNote.rejected, (action) => {
         console.log(action.payload.errors);
       })
-      .addCase(deleteArchiveNote.pending,(state)=>{
+      .addCase(deleteArchiveNote.pending, (state) => {
         state.isFetching = true;
       })
       // Trash Reducers
@@ -362,10 +384,10 @@ export const notesSlice = createSlice({
       .addCase(getTrashNotes.rejected, (action) => {
         console.log(action.payload.errors);
       })
-      .addCase(getTrashNotes.pending,(state)=>{
+      .addCase(getTrashNotes.pending, (state) => {
         state.isFetching = true;
       })
-      .addCase(trashNote.fulfilled,(state,action) =>{
+      .addCase(trashNote.fulfilled, (state, action) => {
         state.isFetching = false;
         state.notes = action.payload.notes;
         state.trash = action.payload.trash;
@@ -373,10 +395,10 @@ export const notesSlice = createSlice({
       .addCase(trashNote.rejected, (action) => {
         console.log(action.payload);
       })
-      .addCase(trashNote.pending,(state)=>{
+      .addCase(trashNote.pending, (state) => {
         state.isFetching = true;
       })
-      .addCase(restoreNote.fulfilled,(state,action) =>{
+      .addCase(restoreNote.fulfilled, (state, action) => {
         state.isFetching = false;
         state.notes = action.payload.notes;
         state.trash = action.payload.trash;
@@ -384,21 +406,29 @@ export const notesSlice = createSlice({
       .addCase(restoreNote.rejected, (action) => {
         console.log(action.payload);
       })
-      .addCase(restoreNote.pending,(state)=>{
+      .addCase(restoreNote.pending, (state) => {
         state.isFetching = true;
       })
-      .addCase(deleteTrashNote.fulfilled,(state,action) =>{
+      .addCase(deleteTrashNote.fulfilled, (state, action) => {
         state.isFetching = false;
         state.trash = action.payload.trash;
       })
       .addCase(deleteTrashNote.rejected, (action) => {
         console.log(action.payload);
       })
-      .addCase(deleteTrashNote.pending,(state)=>{
+      .addCase(deleteTrashNote.pending, (state) => {
         state.isFetching = true;
-      })
+      });
   },
 });
 export default notesSlice.reducer;
 const { actions } = notesSlice;
-export const { handleToggleModal } = actions;
+export const {
+  handleToggleModal,
+  handleToggleEditModal,
+  setNoteToEdit,
+  setByPriority,
+  setByTags,
+  clearFilters,
+  setByDate
+} = actions;

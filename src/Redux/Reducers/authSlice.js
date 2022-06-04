@@ -30,6 +30,20 @@ export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
     }
 })
 
+export const checkToken = createAsyncThunk("auth/checkToken", async (_,{rejectWithValue}) => {
+    const encodedToken = localStorage.getItem("token");
+    if (encodedToken) {
+      try {
+        const response = await axios.post("/api/auth/verify", {
+          encodedToken: encodedToken,
+        });
+        return response.data;
+      } catch (error) {
+        rejectWithValue(error)
+      }
+    }
+  });
+
 
 const authSlice = createSlice({
     name:"auth",
@@ -44,6 +58,8 @@ const authSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(login.fulfilled,(state,action) =>{
             localStorage.setItem("token",action.payload.encodedToken)
+            console.log(action.payload.foundUser)
+            localStorage.setItem("userDetail",JSON.stringify(action.payload.foundUser))
             state.currentUser = action.payload.foundUser
         })
         .addCase(login.rejected, (state, action) => {
@@ -54,7 +70,12 @@ const authSlice = createSlice({
             state.currentUser = action.payload.createdUser
         })
         .addCase(signup.rejected,(state,action) =>{
-        
+            AlertToast(`${action.payload.errors}`);
+        })
+        .addCase(checkToken.fulfilled,(state,action)=>{
+            if(action.payload){
+                state.currentUser = action.payload.user
+            }
         })
     }
 })

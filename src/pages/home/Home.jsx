@@ -6,18 +6,24 @@ import { handleToggleModal,getUserNotes } from "../../Redux/Reducers/notesSlice"
 import { useDispatch } from "react-redux";
 import { EachNote } from "../../components/eachNote/EachNote";
 import { Logo } from "../../assets/icons";
+import {getPrioritySorted,getTagsSortedData,getSortedData,useDocumentTitle} from "../../functions"
+
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const { modalOpen, notes } = useSelector((store) => store.notes);
+  const {  notes,byPriority ,byTags,byDate} = useSelector((store) => store.notes);
   const [isLoading,setLoading] = useState(true)
+  const priorityNotes = getPrioritySorted(notes,byPriority)
+  const tagSortedNotes = getTagsSortedData(priorityNotes,byTags)
+  const sortedData = getSortedData(tagSortedNotes,byDate)
+  useDocumentTitle("Home")
   useEffect(()=>{
     dispatch(getUserNotes())
   },[])
   useEffect(()=>{
     setTimeout(()=>{
       setLoading(false)
-    },1000)
+    },800)
   },[])
   return (
     <>
@@ -27,7 +33,7 @@ export const Home = () => {
         </ButtonToNote>
         {notes.length !== 0 ? (
           <NotesWrapper>
-            {notes.map((note) => (
+            {sortedData.map((note) => (
               <EachNote key={note._id} flag={"home"} note={note} />
             ))}
           </NotesWrapper>
