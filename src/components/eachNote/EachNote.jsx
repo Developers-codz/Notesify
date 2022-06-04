@@ -1,4 +1,5 @@
 import React from "react";
+import parse from "html-react-parser";
 import {
   NoteCard,
   Title,
@@ -32,10 +33,18 @@ export const EachNote = ({ note, flag }) => {
   const dispatch = useDispatch();
   const { title, content,  priority, _id, tags,date,time } = note;
 
+  const options = {
+    replace: (domNode) => {
+      if (domNode.attribs && domNode.attribs.class === 'remove') {
+        return <></>;
+      }
+    },
+  };
+
   return (
     <NoteCard style={{ backgroundColor: note.bgcolor }}>
       <Title>{title}</Title>
-      <NoteText>{content}</NoteText>
+      <NoteText>{parse(content,options)}</NoteText>
       <CreationTime>Created at: {date}{" "}{time}  </CreationTime>
       <Footer>
         <Priority>{priority}</Priority>

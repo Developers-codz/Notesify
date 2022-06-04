@@ -17,14 +17,13 @@ const modules = {
     toolbar: false,
   };
 
-export const Editor = ({enable,note,setNote}) => {
+export const Editor = ({note,setNote}) => {
   return (
     <ReactQuill
           placeholder={"Add notes......"}
-          modules={enable ? modules : noModules}
+          modules={ modules}
           height={"100px"}
           value={note.content}
-          readOnly={!enable}
           onChange={(e) => setNote((prev) => ({ ...prev, content: e }))}
         />
   )

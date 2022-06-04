@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../pages/home/home.css";
 import { Editor } from "../editor/Editor";
-import parse from "html-react-parser";
+
 import {
   EditorWrapper,
   TitleBox,
@@ -20,49 +20,47 @@ import { useDispatch } from "react-redux";
 import { AlertToast } from "../toasts";
 import { ColorPallete } from "../pallete/ColorPallete";
 
-
 export const CreateModal = () => {
-
   const dispatch = useDispatch();
 
   const [bgColor, setbgColor] = useState("whitesmoke");
   const [note, setNote] = useState({ title: "", content: "", priority: "Low" });
   const [tags, setTags] = useState([]);
-  const [enable, setEnable] = useState(true);
 
   const changeHandler = (e) => {
     setNote((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+
+
   const setTagsHandler = (e) => {
     const include = e.target.checked;
     const value = e.target.value;
-    if(include){
-      setTags([...tags,value])
-    }
-    else{
-      setTags([...tags.filter((tag) => tag != value)])
+    if (include) {
+      setTags([...tags, value]);
+    } else {
+      setTags([...tags.filter((tag) => tag != value)]);
     }
   };
 
   const clickHandler = () => {
-    if(note.title === ""){
-      AlertToast("Please Enter Note Title")
+    if (note.title === "") {
+      AlertToast("Please Enter Note Title");
       return;
     }
-    if(note.content === ""){
-      AlertToast("Please Enter note text")
+    if (note.content === "") {
+      AlertToast("Please Enter note text");
       return;
     }
-    setEnable(false);
-    const parsedData = parse(`${note.content}`).props.children; 
+    const parsedData = note.content
+    console.log(parsedData)
     dispatch(
       createNoteHandler({
         title: note.title,
         content: parsedData,
         bgcolor: bgColor,
         priority: note.priority,
-        tags:tags,
+        tags: tags,
       })
     );
     dispatch(handleToggleModal());
@@ -84,9 +82,9 @@ export const CreateModal = () => {
           name="title"
           onChange={changeHandler}
         />
-      <Editor note={note} setNote={setNote} enable={enable} />
+        <Editor note={note} setNote={setNote} />
         <EditorFooter>
-         <ColorPallete setbgColor={setbgColor}/>
+          <ColorPallete setbgColor={setbgColor} />
           <div>
             <CheckBoxInput
               type="checkbox"

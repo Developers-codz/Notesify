@@ -32,7 +32,6 @@ export const EditModal = () => {
     priority: noteToEdit.priority,
   });
   const [tags, setTags] = useState(noteToEdit.tags);
-  const [enable, setEnable] = useState(true);
 
   const changeHandler = (e) => {
     setNote((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -57,8 +56,7 @@ export const EditModal = () => {
       AlertToast("Please Enter note text");
       return;
     }
-    setEnable(false);
-    const parsedData = parse(`${note.content}`).props.children;
+    const parsedData = note.content
     dispatch(
         editNoteHandler({
         _id:noteToEdit._id,
@@ -88,7 +86,7 @@ export const EditModal = () => {
           name="title"
           onChange={changeHandler}
         />
-        <Editor note={note} setNote={setNote} enable={enable} />
+        <Editor note={note} setNote={setNote} />
         <EditorFooter>
         <ColorPallete setbgColor={setbgColor} />
           <div>
