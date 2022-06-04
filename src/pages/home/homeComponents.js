@@ -6,7 +6,7 @@ export const HomeWrapper = styled.div`
 
 export const EditorWrapper = styled.div`
 width:40rem;
-height:22rem;
+height:23rem;
 border-radius: 20px;
 position: fixed;
 top:50%;

@@ -1,6 +1,8 @@
 import React from 'react'
-import ReactQuill from "react-quill";
+import ReactQuill,{Quill} from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import "quill-emoji/dist/quill-emoji.css";
+
 
 const modules = {
     toolbar: [
@@ -10,12 +12,15 @@ const modules = {
       [{ list: "ordered" }, { list: "bullet" }],
       ["link", "image"],
       [{ color: [] }, { align: [] }],
+      ["emoji"],
+      ["clean"],
     ],
+
+    'emoji-toolbar': true,
+    "emoji-shortname": true,
   };
   
-  const noModules = {
-    toolbar: false,
-  };
+
 
 export const Editor = ({note,setNote}) => {
   return (
