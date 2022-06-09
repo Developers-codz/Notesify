@@ -22,6 +22,7 @@ import {
   setByDate,
   clearFilters,
 } from "../../Redux/Reducers/notesSlice";
+
 import { useDispatch } from "react-redux";
 
 export const Navbar = () => {

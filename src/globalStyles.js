@@ -67,7 +67,20 @@ html{
 .section{
   justify-content: center;
 }
+.aside{
+  position:fixed;
+  left:-50%;
+  transition: all 500ms linear;
+  min-height:fit-content;
+  display:block;
+  top: 10vh;
+  background-color: var(--bg-primary);
 }
+.aside-show{
+  left:0;
+}
+}
+
 `
 
 export default GlobalStyle;

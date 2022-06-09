@@ -1,14 +1,16 @@
 import { useLocation } from "react-router-dom";
 import { NavMenu, NavItem, NavLinks, IconWrapper } from "./asideComponent";
 import { HomeIcon ,TrashIcon,ArchiveIcon,SettingsIcon} from "../../assets/icons/navigationIcon";
+import { useSelector } from "react-redux";
 
 export const Aside = () => {
   const { pathname } = useLocation();
+  const { drawerOpen } = useSelector(store => store.aside)
   return pathname !== "/landing" &&
     pathname !== "/login" &&
     pathname !== "/signup" &&
     pathname !== "/mockman" ? (
-    <aside className="aside">
+    <aside className={drawerOpen ? "aside aside-show" : "aside"}>
       <NavMenu>
         <NavLinks to="/" className={navData=> navData.isActive ? "active" :""}>
           <IconWrapper><HomeIcon height="2rem" width="2rem" /></IconWrapper>
