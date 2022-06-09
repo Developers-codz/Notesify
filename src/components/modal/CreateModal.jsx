@@ -53,7 +53,6 @@ export const CreateModal = () => {
       return;
     }
     const parsedData = note.content
-    console.log(parsedData)
     dispatch(
       createNoteHandler({
         title: note.title,

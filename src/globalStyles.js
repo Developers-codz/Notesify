@@ -52,7 +52,7 @@ html{
   min-height: 97.5vh;
  
 }
-@media only screen and (max-width:560px){
+@media only screen and (max-width:768px){
   html{
     font-size:65%;
   }
@@ -63,6 +63,9 @@ html{
  
   grid-template-areas: "nav nav"
   "main main";
+}
+.section{
+  justify-content: center;
 }
 }
 `

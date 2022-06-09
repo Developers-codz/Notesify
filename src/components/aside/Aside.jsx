@@ -10,7 +10,7 @@ export const Aside = () => {
     pathname !== "/mockman" ? (
     <aside className="aside">
       <NavMenu>
-        <NavLinks to="/">
+        <NavLinks to="/" className={navData=> navData.isActive ? "active" :""}>
           <IconWrapper><HomeIcon height="2rem" width="2rem" /></IconWrapper>
           <NavItem>Home</NavItem>
         </NavLinks>
