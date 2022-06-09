@@ -94,11 +94,12 @@ export const Navbar = () => {
               <h3>Filter By tags</h3>
             </FilterHead>
             <FilterOptions>
-              {tags.map((tag) => {
+              {tags.map((tag,i) => {
                 return (
                   <>
                     <input
                       type="checkbox"
+                      key={i}
                       id={tag}
                       checked={inTag.some((t) => t === tag)}
                       value={tag}

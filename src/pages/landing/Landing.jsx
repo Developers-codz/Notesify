@@ -11,7 +11,7 @@ export const Landing = () =>{
                 <Logo width="5rem" height="5rem" />
                 </Section>
               <Header>Notesify</Header>
-              <Para>Take and manage notes for you</Para>
+              <Para>Take and manage notes just for you in a modern way.</Para>
               <Button to="/login">Get Started</Button>
             </Section>
             <Section>

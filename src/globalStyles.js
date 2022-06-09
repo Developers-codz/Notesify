@@ -75,6 +75,7 @@ html{
   display:block;
   top: 10vh;
   background-color: var(--bg-primary);
+  z-index:10;
 }
 .aside-show{
   left:0;

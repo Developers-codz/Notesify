@@ -28,6 +28,9 @@ export const SearchInput = styled.input`
   &:focus {
     outline: none;
   }
+  @media only screen and (max-width:768px){
+    width:40vw
+  }
 `;
 export const SearchWrapper = styled.div`
   position: relative;
@@ -45,6 +48,11 @@ export const IconWrapper = styled.div`
   > * {
     cursor: pointer;
   }
+  @media only screen and (max-width:768px){
+    justify-content: space-between;
+    width:10vw;
+    margin:.1rem 1rem;
+  }
 `;
 
 export const FilterMenu = styled.div`
@@ -56,6 +64,9 @@ export const FilterMenu = styled.div`
   height:20rem;
   border:1px solid black;
   background-color: var(--bg-primary);
+  @media only screen and (max-width:768px){
+    height:25rem;
+  }
 `
 
 export  const DropDownMenu = styled.button`
