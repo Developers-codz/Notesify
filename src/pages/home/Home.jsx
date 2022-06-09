@@ -2,11 +2,11 @@ import React, { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./home.css";
 import { ButtonToNote, NotesWrapper,NoNotesMsg,ButtonToNoteNow } from "./homeComponents";
-import { handleToggleModal,getUserNotes } from "../../Redux/Reducers/notesSlice";
+import { handleToggleModal,getUserNotes } from "Redux/Reducers/notesSlice";
 import { useDispatch } from "react-redux";
-import { EachNote } from "../../components/eachNote/EachNote";
-import { Logo } from "../../assets/icons";
-import {getPrioritySorted,getTagsSortedData,getSortedData,useDocumentTitle} from "../../functions"
+import { EachNote } from "components/eachNote/EachNote";
+import { Logo } from "assets/icons";
+import {getPrioritySorted,getTagsSortedData,getSortedData,useDocumentTitle} from "functions"
 
 
 export const Home = () => {

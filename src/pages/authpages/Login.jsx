@@ -9,9 +9,9 @@ import {
   Para,
 } from "./AuthFormComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../Redux/Reducers/authSlice";
+import { login } from "Redux/Reducers/authSlice";
 import { useState } from "react";
-import {useDocumentTitle} from "../../functions"
+import {useDocumentTitle} from "functions"
 
 
 export const Login = () => {

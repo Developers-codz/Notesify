@@ -5,11 +5,11 @@ import {
   NoNotesMsg,
   ButtonToNoteNow,
 } from "../home/homeComponents";
-import { ArchiveIcon } from "../../assets/icons";
+import { ArchiveIcon } from "assets/icons";
 import { Link } from "react-router-dom";
-import { getArchiveNotes } from "../../Redux/Reducers/notesSlice";
-import { EachNote } from "../../components";
-import {useDocumentTitle} from "../../functions"
+import { getArchiveNotes } from "Redux/Reducers/notesSlice";
+import { EachNote } from "components";
+import {useDocumentTitle} from "functions"
 
 export const Archive = () => {
   useDocumentTitle("Archive")

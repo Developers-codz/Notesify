@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { NavMenu, NavItem, NavLinks, IconWrapper } from "./asideComponent";
-import { HomeIcon ,TrashIcon,ArchiveIcon,SettingsIcon} from "../../assets/icons/navigationIcon";
+import { HomeIcon ,TrashIcon,ArchiveIcon} from "assets/icons/navigationIcon";
 import { useSelector } from "react-redux";
 
 export const Aside = () => {

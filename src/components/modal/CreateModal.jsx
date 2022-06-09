@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../pages/home/home.css";
+import "pages/home/home.css";
 import { Editor } from "../editor/Editor";
 
 import {
@@ -10,12 +10,12 @@ import {
   EditorFooter,
   CheckBoxInput,
   Checkboxlabel,
-} from "../../pages/home/homeComponents";
+} from "pages/home/homeComponents";
 
 import {
   handleToggleModal,
   createNoteHandler,
-} from "../../Redux/Reducers/notesSlice";
+} from "Redux/Reducers/notesSlice";
 import { useDispatch } from "react-redux";
 import { AlertToast } from "../toasts";
 import { ColorPallete } from "../pallete/ColorPallete";
