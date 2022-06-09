@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Logo, Search, LoginIcon, FilterIcon } from "../../assets/icons";
+import { Logo, Search, LoginIcon, FilterIcon } from "assets/icons";
 import {
   Header,
   Heading,
@@ -15,13 +15,14 @@ import {
   FilterOptions,
   ClearButton,
 } from "./navbarComponent";
-import { logout } from "../../Redux/Reducers/authSlice";
+import { logout } from "Redux/Reducers/authSlice";
 import {
   setByPriority,
   setByTags,
   setByDate,
   clearFilters,
-} from "../../Redux/Reducers/notesSlice";
+} from "Redux/Reducers/notesSlice";
+
 import { useDispatch } from "react-redux";
 
 export const Navbar = () => {
@@ -93,11 +94,12 @@ export const Navbar = () => {
               <h3>Filter By tags</h3>
             </FilterHead>
             <FilterOptions>
-              {tags.map((tag) => {
+              {tags.map((tag,i) => {
                 return (
                   <>
                     <input
                       type="checkbox"
+                      key={i}
                       id={tag}
                       checked={inTag.some((t) => t === tag)}
                       value={tag}

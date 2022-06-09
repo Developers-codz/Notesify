@@ -36,9 +36,8 @@ export const Footer = styled.div`
 export const IconContainer = styled.div`
     position:absolute;
     bottom:0;
-    left:300px;
+    left:18.5rem;
     display:flex;
-    
 `
 
 export const IconWrapper = styled.span`

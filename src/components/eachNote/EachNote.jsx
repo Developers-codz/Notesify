@@ -16,7 +16,7 @@ import {
   TrashIcon,
   UnArchive,
   RestoreIcon,
-} from "../../assets/icons";
+} from "assets/icons";
 import { useDispatch } from "react-redux";
 import {
   archiveNote,
@@ -27,7 +27,7 @@ import {
   deleteTrashNote,
   handleToggleEditModal,
   setNoteToEdit,
-} from "../../Redux/Reducers/notesSlice";
+} from "Redux/Reducers/notesSlice";
 
 export const EachNote = ({ note, flag }) => {
   const dispatch = useDispatch();

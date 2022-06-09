@@ -5,10 +5,10 @@ import {
   NoNotesMsg,
   ButtonToNoteNow,
 } from "../home/homeComponents";
-import { TrashIcon } from "../../assets/icons";
+import { TrashIcon } from "assets/icons";
 import { Link } from "react-router-dom";
-import { EachNote } from "../../components";
-import {useDocumentTitle} from "../../functions"
+import { EachNote } from "components";
+import {useDocumentTitle} from "functions"
 
 export const Trash = () => {
   useDocumentTitle("Trash")

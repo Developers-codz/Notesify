@@ -9,9 +9,9 @@ import {
 } from "./AuthFormComponent";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import { signup } from "../../Redux/Reducers/authSlice";
-import { AlertToast } from "../../components/toasts";
-import {useDocumentTitle} from "../../functions"
+import { signup } from "Redux/Reducers/authSlice";
+import { AlertToast } from "components/toasts";
+import {useDocumentTitle} from "functions"
 
 export const SignUp = () => {
   useDocumentTitle("Signup")
