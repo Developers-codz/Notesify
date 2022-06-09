@@ -73,7 +73,7 @@ html{
   transition: all 500ms linear;
   min-height:fit-content;
   display:block;
-  top: 10vh;
+  top: 8.3vh;
   background-color: var(--bg-primary);
   z-index:10;
 }
