@@ -13,6 +13,7 @@ const initialState = {
   byPriority: null,
   byTags: [],
   byDate: null,
+  bySearch:""
 };
 
 export const getUserNotes = createAsyncThunk(
@@ -275,10 +276,18 @@ export const notesSlice = createSlice({
       state.byPriority = action.payload;
     },
     setByTags:(state,action) =>{
-      state.byTags = action.payload;
+      if(state.byTags.find(item => item === action.payload)){
+        state.byTags = state.byTags.filter(i => i!==action.payload)
+      }
+      else {
+        state.byTags = [...state.byTags,action.payload]
+      }
     },
     setByDate:(state,action) =>{
       state.byDate = action.payload;
+    },
+    setBySearch:(state,action) =>{
+      state.bySearch = action.payload
     },
     clearFilters:(state) =>{
       state.byPriority = null;
@@ -430,5 +439,6 @@ export const {
   setByPriority,
   setByTags,
   clearFilters,
-  setByDate
+  setByDate,
+  setBySearch
 } = actions;

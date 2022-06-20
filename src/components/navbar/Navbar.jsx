@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Logo, Search, LoginIcon, FilterIcon } from "assets/icons";
 import {
@@ -21,38 +21,37 @@ import {
   setByTags,
   setByDate,
   clearFilters,
+  setBySearch,
 } from "Redux/Reducers/notesSlice";
+import { debounce } from "functions";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Navbar = () => {
   const [isMenuOpen, setOpen] = useState({ logout: false, filter: false });
   const dispatch = useDispatch();
   const tags = ["Study", "Health", "Office"];
+  const { byPriority, byTags, byDate } = useSelector((store) => store.notes);
   const [inTag, setInTag] = useState([]);
   const { pathname } = useLocation();
+  const [searchText, setSearchText] = useState("");
 
   const priorityHandler = (e) => {
     dispatch(setByPriority(e.target.value));
   };
-  const dateHandler = (e) =>{
-    dispatch(setByDate(e.target.value))
+  const dateHandler = (e) => {
+    dispatch(setByDate(e.target.value));
+  };
+
+  const changeHandler =() => {
+    dispatch(setBySearch(searchText.toLowerCase()))
   }
 
-  const tagsHandler = (e) => {
-    const currentTag = e.target.value;
-    const include = e.target.checked
-    if(include)
-    setInTag([...inTag,currentTag])
-    else{
-      setInTag([...inTag.filter(tag => tag != currentTag)])
-    }
-    
-  };
+  const getOptimisedVersion = debounce(changeHandler,1000)
+ 
   useEffect(()=>{
-    dispatch(setByTags(inTag))
-  },[inTag])
-  
+   getOptimisedVersion()
+  },[searchText])
 
   return pathname !== "/landing" &&
     pathname !== "/login" &&
@@ -65,7 +64,11 @@ export const Navbar = () => {
           <Heading>Notesify</Heading>
         </Wrapper>
         <SearchWrapper>
-          <SearchInput placeholder="Search..." />
+          <SearchInput
+            placeholder="Search..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
 
           <SearchWrapperIcon>
             <Search />
@@ -94,16 +97,16 @@ export const Navbar = () => {
               <h3>Filter By tags</h3>
             </FilterHead>
             <FilterOptions>
-              {tags.map((tag,i) => {
+              {tags.map((tag, i) => {
                 return (
                   <>
                     <input
                       type="checkbox"
                       key={i}
                       id={tag}
-                      checked={inTag.some((t) => t === tag)}
+                      checked={byTags.some((t) => t === tag)}
                       value={tag}
-                      onClick={tagsHandler}
+                      onChange={(e) => dispatch(setByTags(e.target.value))}
                     />
                     <label htmlFor={tag}>{tag}</label>
                   </>
@@ -119,7 +122,8 @@ export const Navbar = () => {
                 id="low"
                 name="priority"
                 value="Low"
-                onClick={priorityHandler}
+                onChange={priorityHandler}
+                checked={byPriority === "Low"}
               />
               <label htmlFor="low">Low</label>
               <input
@@ -127,7 +131,8 @@ export const Navbar = () => {
                 id="high"
                 name="priority"
                 value="High"
-                onClick={priorityHandler}
+                onChange={priorityHandler}
+                checked={byPriority === "High"}
               />
               <label htmlFor="high">High</label>
               <input
@@ -135,7 +140,8 @@ export const Navbar = () => {
                 id="medium"
                 name="priority"
                 value="Medium"
-                onClick={priorityHandler}
+                onChange={priorityHandler}
+                checked={byPriority === "Medium"}
               />
               <label htmlFor="medium">Medium</label>
             </FilterOptions>
@@ -143,9 +149,23 @@ export const Navbar = () => {
               <h3>Filter by Date</h3>
             </FilterHead>
             <FilterOptions>
-              <input type="radio" id="old" name="date" value="old" onClick={dateHandler} />
+              <input
+                type="radio"
+                id="old"
+                name="date"
+                value="old"
+                onChange={dateHandler}
+                checked={byDate === "old"}
+              />
               <label htmlFor="old">Oldest First</label>
-              <input type="radio" id="new" name="date" value="new" onClick={dateHandler} />
+              <input
+                type="radio"
+                id="new"
+                name="date"
+                value="new"
+                onClick={dateHandler}
+                checked={byDate === "new"}
+              />
               <label htmlFor="new">Newest First</label>
             </FilterOptions>
             <ClearButton onClick={() => dispatch(clearFilters())}>
