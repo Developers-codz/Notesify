@@ -64,8 +64,7 @@ export const ButtonToNote = styled.button`
   bottom: ${(props) => (props.addNotes ? "40px" : "")};
   right: ${(props) => (props.addNotes ? "30px" : "")};
   &:hover {
-    transform: scale(1.03, 1.03);
-    color: var(--primary-cta) !important;
+    transform: scale(1.03, 1.03); 
   }
 `;
 
