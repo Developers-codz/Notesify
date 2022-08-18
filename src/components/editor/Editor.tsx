@@ -29,16 +29,24 @@ const modules = {
     "emoji-shortname": true,
   };
   
+type Props = {
+  note:{
+    content:string
+  },
+  setNote : any
+}
+type PrevObj = {
+  content:string
+}
 
-
-export const Editor = ({note,setNote}) => {
+export const Editor = ({note,setNote}:Props) => {
   return (
     <ReactQuill
           placeholder={"Add notes......"}
           modules={ modules}
-          height={"100px"}
+          // height={"100px"}
           value={note.content}
-          onChange={(e) => setNote((prev) => ({ ...prev, content: e }))}
+          onChange={(e) => setNote((prev:PrevObj) => ({ ...prev, content: e }))}
         />
   )
 }

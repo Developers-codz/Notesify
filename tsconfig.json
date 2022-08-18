@@ -11,13 +11,17 @@
     "target": "es2016",
     "baseUrl": "src",                                 
     /* Modules */
-    "module": "commonjs",                          
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "jsx": "react",                    
     "esModuleInterop": true,                           
-    "forceConsistentCasingInFileNames": true,        
+    "forceConsistentCasingInFileNames": true,    
     /* Type Checking */
     "strict": true,                                
-       "skipLibCheck": true                               
+    "skipLibCheck": true                               
   },
-   "exclude": ["node_modules", "build"],
+   "exclude": ["node_modules", "build", "src", "modules.d.ts"],
    "include": ["src"]
 }

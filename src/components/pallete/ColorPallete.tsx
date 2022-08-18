@@ -4,9 +4,12 @@ import { Pallette,
     BlueButton,
     GreenButton,
     YellowButton,
-    WhiteButton,} from "./colorPalleteComponent.js"
+    WhiteButton,} from "./colorPalleteComponent"
 
-export const ColorPallete = ({setbgColor}) => {
+type Props = {
+  setbgColor: (value: string) => void;
+}
+export const ColorPallete = ({setbgColor}:Props) => {
   return (
     <Pallette>
     <PinkButton onClick={() => setbgColor("lightpink")}></PinkButton>
