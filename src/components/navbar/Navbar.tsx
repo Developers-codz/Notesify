@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Logo, Search, LoginIcon, FilterIcon } from "assets/icons";
+import { Logo, Search, LoginIcon, FilterIcon } from "../../assets/icons";
 import {
   Header,
   Heading,
@@ -15,24 +15,24 @@ import {
   FilterOptions,
   ClearButton,
 } from "./navbarComponent";
-import { logout } from "Redux/Reducers/authSlice";
+import { logout } from "../../Redux/Reducers/authSlice";
 import {
   setByPriority,
   setByTags,
   setByDate,
   clearFilters,
   setBySearch,
-} from "Redux/Reducers/notesSlice";
-import { debounce } from "functions";
+} from "../../Redux/Reducers/notesSlice";
+import { debounce } from "../../functions";
 
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch,useAppSelector } from "../../Redux/hooks";
 
 export const Navbar = () => {
   const [isMenuOpen, setOpen] = useState({ logout: false, filter: false });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const tags = ["Study", "Health", "Office"];
-  const { byPriority, byTags, byDate } = useSelector((store) => store.notes);
-  const [inTag, setInTag] = useState([]);
+  const { byPriority, byTags, byDate } = useAppSelector((store) => store.notes);
   const { pathname } = useLocation();
   const [searchText, setSearchText] = useState("");
 
@@ -177,7 +177,7 @@ export const Navbar = () => {
           <DropDownMenu
             onClick={() => {
               dispatch(logout());
-              setOpen(false);
+              setOpen(prev => ({...prev,logout:!prev.logout}));
             }}
           >
             Log Out
