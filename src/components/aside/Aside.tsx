@@ -1,11 +1,11 @@
 import { useLocation } from "react-router-dom";
 import { NavMenu, NavItem, NavLinks, IconWrapper } from "./asideComponent";
 import { HomeIcon ,TrashIcon,ArchiveIcon} from "../../assets/icons/navigationIcon";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../Redux/hooks";
 
 export const Aside = () => {
   const { pathname } = useLocation();
-  const { drawerOpen } = useSelector(store => store.aside)
+  const { drawerOpen } = useAppSelector(store => store.aside)
   return pathname !== "/landing" &&
     pathname !== "/login" &&
     pathname !== "/signup" &&
