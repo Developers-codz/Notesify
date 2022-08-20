@@ -1,7 +1,7 @@
-export const getSearchSortedData = (notes, searchText) => {
+export const getSearchSortedData = (notes:any[], searchText:string) => {
   if (searchText === "") return notes;
   else {
-    let searchedNotes = [...notes];
+    let searchedNotes:any[] = [...notes];
     searchedNotes = searchedNotes.filter((note) => {
       return (
         note.title.toLowerCase().includes(searchText) ||
