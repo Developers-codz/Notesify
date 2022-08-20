@@ -1,8 +1,8 @@
 interface debounceFunc{
-(cb:(params:string)=>void,param:number)
+(cb:(params:string)=>void,delay:number)
 }
 export const debounce:debounceFunc = (cb,delay) =>{
-    let timer;
+    let timer:NodeJS.Timeout;
     return function(){
         const context = this;
         const args = arguments;

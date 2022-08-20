@@ -1,4 +1,5 @@
-export const getPrioritySorted = (notes,priorityBy) => {
+
+export const getPrioritySorted= (notes:any[],priorityBy:string) => {
     switch(priorityBy){
         case "Low":{
             return notes.filter(note => note.priority === "Low")
