@@ -1,4 +1,7 @@
-export const debounce = (cb,delay) =>{
+interface debounceFunc{
+(cb:(params:string)=>void,param:number)
+}
+export const debounce:debounceFunc = (cb,delay) =>{
     let timer;
     return function(){
         const context = this;
