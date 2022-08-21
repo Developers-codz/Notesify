@@ -1,14 +1,13 @@
 export const getSortedData = (notes:any[], byDate:string) => {
-  type Props =  {
-  createdAt:Date;
+  interface DateProps {
+    createdAt:Date
   }
-  if (byDate === "old") {
-    return notes.sort((a:Props, b:Props) => {
-      const date1:Date|number = new Date(a.createdAt)
-      const date2:Date|number = new Date(b.createdAt)
-      return date1 - date2
-    };
+  if (byDate === "old"){
+    return notes.sort((a:DateProps, b:DateProps) => 
+    // Unary plus (+) converts an operand ( new Date() ) into a number.
+    +new Date(a.createdAt.valueOf()) - +new Date(b.createdAt.valueOf()))
   } else {
-    return notes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return notes.sort((a:DateProps, b:DateProps) =>
+     +new Date(b.createdAt.valueOf()) - +new Date(a.createdAt.valueOf()))
   }
-};
+}

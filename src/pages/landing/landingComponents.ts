@@ -11,9 +11,12 @@ export const Wrapper = styled.div`
     width:100vw;
   }
 `;
+interface sectionProps{
+  logo:boolean
+}
 export const Section = styled.div`
-  margin-left: ${(props) => (props.logo ? "" : "5rem")};
-  margin-bottom: ${(props) => (props.logo ? "1rem" : "")};
+  margin-left: ${(props:sectionProps) => (props.logo ? "" : "5rem")};
+  margin-bottom: ${(props:sectionProps) => (props.logo ? "1rem" : "")};
   @media only screen and (max-width: 560px) {
     margin-left:0
   }

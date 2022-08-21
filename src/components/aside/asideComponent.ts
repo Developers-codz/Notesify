@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+interface MyProps {
+  exact: boolean;
+}
 export const NavMenu = styled.ul`
   list-style: none;
 `;
@@ -12,7 +15,7 @@ export const NavLinks = styled(NavLink)`
   justify-content: start;
   align-items: center;
   border-radius: 0 10px 10px 0;
-  color: ${props => props.exact ? "red" : "black"};
+  color: ${(props:MyProps) => props.exact? "red" : "black"};
   &:hover {
     background-color: #f1e9e7; 
   }
