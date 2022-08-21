@@ -1,9 +1,15 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 import { AlertToast,SuccessToast } from "../../components/toasts";
-
-const initialState = {
-    currentUser:{},
+interface CurrentUserAttr {
+currentUser:{
+    _id?:string
+} 
+}
+const initialState:CurrentUserAttr = {
+    currentUser:{
+        _id:""
+    },
 };
 
 export const login = createAsyncThunk("/auth/login", async (userDetail) =>{
@@ -63,14 +69,14 @@ const authSlice = createSlice({
             state.currentUser = action.payload.foundUser
         })
         .addCase(login.rejected, (state, action) => {
-            AlertToast(`${action.payload.errors}`);
+            AlertToast(`${action.payload}`);
           })
         .addCase(signup.fulfilled,(state,action) => {
             localStorage.setItem("token",action.payload.encodedToken)
             state.currentUser = action.payload.createdUser
         })
         .addCase(signup.rejected,(state,action) =>{
-            AlertToast(`${action.payload.errors}`);
+            AlertToast(`${action.payload}`);
         })
         .addCase(checkToken.fulfilled,(state,action)=>{
             if(action.payload){

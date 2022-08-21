@@ -1,7 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SuccessToast, AlertToast } from "../../components/toasts";
 import axios from "axios";
-const initialState = {
+
+interface StateProps{
+  userProfile:object,
+  notes:any[], // array of any 
+  archive:any[],
+  modalOpen:boolean,
+  editModalOpen:boolean,
+  trash: any[],
+  isFetching: boolean,
+  noteToEdit: null|boolean,
+  byPriority: null|boolean,
+  byTags: any[],
+  byDate: null|string,
+  bySearch:string
+}
+
+const initialState :StateProps= {
   userProfile: {},
   modalOpen: false,
   editModalOpen: false,
@@ -19,7 +35,7 @@ const initialState = {
 export const getUserNotes = createAsyncThunk(
   "/notes/getUserNotes",
   async (mockParams, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string= localStorage.getItem("token") || "";
     try {
       const response = await axios.get("/api/notes", {
         headers: {
@@ -28,7 +44,7 @@ export const getUserNotes = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
@@ -36,11 +52,11 @@ export const getUserNotes = createAsyncThunk(
 const getUserProfile = createAsyncThunk(
   "notes/getUserProfile",
   async (mockParams, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string = localStorage.getItem("token") || "";
     try {
       const response = await axios.get(
         "/api/user",
-        {},
+        // {},
         {
           headers: {
             authorization: encodedToken,
@@ -48,7 +64,7 @@ const getUserProfile = createAsyncThunk(
         }
       );
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
@@ -56,7 +72,7 @@ const getUserProfile = createAsyncThunk(
 export const createNoteHandler = createAsyncThunk(
   "notes/createNoteHandler",
   async (note, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string = localStorage.getItem("token") || "";
     try {
       const response = await axios.post(
         "/api/notes",
@@ -70,15 +86,18 @@ export const createNoteHandler = createAsyncThunk(
       SuccessToast("Note Created Successfully");
       return response.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
 
-export const editNoteHandler = createAsyncThunk(
+interface NoteAttr{
+  _id:string
+}
+export const editNoteHandler = createAsyncThunk<any,NoteAttr>(
   "notes/editNoteHandler",
   async (note, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string = localStorage.getItem("token") || "";
     try {
       const response = await axios.post(
         `/api/notes/${note._id}`,
@@ -91,7 +110,7 @@ export const editNoteHandler = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
@@ -100,7 +119,7 @@ export const deleteNoteHandler = createAsyncThunk(
   "notes/deleteNoteHandler",
   async (id, { rejectWithValue }) => {
     console.log(id);
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string = localStorage.getItem("token") || "";
     try {
       const response = await axios.delete(`/api/notes/${id}`, {
         headers: { authorization: encodedToken },
@@ -108,7 +127,7 @@ export const deleteNoteHandler = createAsyncThunk(
       SuccessToast("Note Deleted Successfully");
       return response.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
@@ -118,7 +137,7 @@ export const deleteNoteHandler = createAsyncThunk(
 export const getArchiveNotes = createAsyncThunk(
   "notes/getArchiveNotes",
   async (mockParams, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string = localStorage.getItem("token") || "";
     try {
       const response = await axios.get("/api/archives", {
         headers: { authorization: encodedToken },
@@ -126,15 +145,17 @@ export const getArchiveNotes = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
-
-export const archiveNote = createAsyncThunk(
+interface ArchiveAttr {
+  _id:string
+}
+export const archiveNote = createAsyncThunk<any, ArchiveAttr>(
   "notes/archiveNote",
   async (note, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string= localStorage.getItem("token") || "";
     const { _id } = note;
     try {
       const response = await axios.post(
@@ -145,14 +166,14 @@ export const archiveNote = createAsyncThunk(
       SuccessToast("Note Archived Successfully");
       return response.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
-export const unarchiveNote = createAsyncThunk(
+export const unarchiveNote = createAsyncThunk<any ,ArchiveAttr>(
   "notes/unarchiveNote",
   async (note, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string = localStorage.getItem("token") || "";
     const { _id } = note;
     try {
       const response = await axios.post(
@@ -163,7 +184,7 @@ export const unarchiveNote = createAsyncThunk(
       SuccessToast("Note unarchived Successfully");
       return response.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
@@ -171,7 +192,7 @@ export const unarchiveNote = createAsyncThunk(
 export const deleteArchiveNote = createAsyncThunk(
   "notes/deleteArchiveNote",
   async (id, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string = localStorage.getItem("token") || "";
     try {
       const response = await axios.delete(`/api/archives/delete/${id}`, {
         headers: { authorization: encodedToken },
@@ -179,7 +200,7 @@ export const deleteArchiveNote = createAsyncThunk(
       AlertToast("Archive Note Deleted Successfully");
       return response.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
@@ -189,7 +210,7 @@ export const deleteArchiveNote = createAsyncThunk(
 export const getTrashNotes = createAsyncThunk(
   "notes/getTrashNotes",
   async (mockParams, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string= localStorage.getItem("token") || "";
     try {
       const response = await axios.get("/api/trash", {
         headers: { authorization: encodedToken },
@@ -197,15 +218,15 @@ export const getTrashNotes = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
 
-export const trashNote = createAsyncThunk(
+export const trashNote = createAsyncThunk<any,ArchiveAttr>(
   "notes/trashNote",
   async (note, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string = localStorage.getItem("token") || "";
     const { _id } = note;
     try {
       const response = await axios.post(
@@ -217,14 +238,14 @@ export const trashNote = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
-export const restoreNote = createAsyncThunk(
+export const restoreNote = createAsyncThunk<any, ArchiveAttr>(
   "notes/restoreNote",
   async (note, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken :string = localStorage.getItem("token") || "";
     const { _id } = note;
     try {
       const response = await axios.post(
@@ -236,15 +257,15 @@ export const restoreNote = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error);
     }
   }
 );
 
-export const deleteTrashNote = createAsyncThunk(
+export const deleteTrashNote = createAsyncThunk<any,ArchiveAttr,{rejectValue:Error}>(
   "notes/deleteTrashNote",
   async (note, { rejectWithValue }) => {
-    const encodedToken = localStorage.getItem("token");
+    const encodedToken:string = localStorage.getItem("token") || "";
     const { _id } = note;
     try {
       const response = await axios.delete(`/api/trash/delete/${_id}`, {
@@ -254,7 +275,7 @@ export const deleteTrashNote = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.log(error);
-      rejectWithValue(error.response.data);
+      return rejectWithValue(error as Error);
     }
   }
 );
@@ -297,7 +318,7 @@ export const notesSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getUserProfile.fulfilled, (state, action) => {
+      .addCase(getUserProfile.fulfilled, (state, action:any) => {
         state.userProfile = action.payload;
       })
 
@@ -306,7 +327,9 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes;
       })
       .addCase(getUserNotes.rejected, (action) => {
-        console.log(action.payload.errors);
+        if(action && action.payload){
+          AlertToast(action.payload)
+        }
       })
       .addCase(getUserNotes.pending, (state) => {
         state.isFetching = true;
