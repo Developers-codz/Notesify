@@ -1,24 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SuccessToast, AlertToast } from "../../components/toasts";
 import axios from "axios";
+import {StateProps,NoteAttr, NotesType} from "../../types/notesType"
 
-interface StateProps{
-  userProfile:object,
-  notes:any[], // array of any 
-  archive:any[],
-  modalOpen:boolean,
-  editModalOpen:boolean,
-  trash: any[],
-  isFetching: boolean,
-  noteToEdit: null|boolean,
-  byPriority: null|boolean,
-  byTags: any[],
-  byDate: null|string,
-  bySearch:string
-}
-
-const initialState :StateProps= {
-  userProfile: {},
+const initialState :StateProps = {
+  userProfile:{},
   modalOpen: false,
   editModalOpen: false,
   notes: [],
@@ -91,9 +77,7 @@ export const createNoteHandler = createAsyncThunk(
   }
 );
 
-interface NoteAttr{
-  _id:string
-}
+
 export const editNoteHandler = createAsyncThunk<any,NoteAttr>(
   "notes/editNoteHandler",
   async (note, { rejectWithValue }) => {
@@ -118,7 +102,6 @@ export const editNoteHandler = createAsyncThunk<any,NoteAttr>(
 export const deleteNoteHandler = createAsyncThunk(
   "notes/deleteNoteHandler",
   async (id, { rejectWithValue }) => {
-    console.log(id);
     const encodedToken:string = localStorage.getItem("token") || "";
     try {
       const response = await axios.delete(`/api/notes/${id}`, {
@@ -149,10 +132,8 @@ export const getArchiveNotes = createAsyncThunk(
     }
   }
 );
-interface ArchiveAttr {
-  _id:string
-}
-export const archiveNote = createAsyncThunk<any, ArchiveAttr>(
+
+export const archiveNote = createAsyncThunk<NotesType, NoteAttr>(
   "notes/archiveNote",
   async (note, { rejectWithValue }) => {
     const encodedToken:string= localStorage.getItem("token") || "";
@@ -170,7 +151,7 @@ export const archiveNote = createAsyncThunk<any, ArchiveAttr>(
     }
   }
 );
-export const unarchiveNote = createAsyncThunk<any ,ArchiveAttr>(
+export const unarchiveNote = createAsyncThunk<NotesType ,NoteAttr>(
   "notes/unarchiveNote",
   async (note, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";
@@ -189,7 +170,7 @@ export const unarchiveNote = createAsyncThunk<any ,ArchiveAttr>(
   }
 );
 
-export const deleteArchiveNote = createAsyncThunk(
+export const deleteArchiveNote = createAsyncThunk<NotesType,string>(
   "notes/deleteArchiveNote",
   async (id, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";
@@ -223,7 +204,7 @@ export const getTrashNotes = createAsyncThunk(
   }
 );
 
-export const trashNote = createAsyncThunk<any,ArchiveAttr>(
+export const trashNote = createAsyncThunk<NotesType,NoteAttr>(
   "notes/trashNote",
   async (note, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";
@@ -242,7 +223,7 @@ export const trashNote = createAsyncThunk<any,ArchiveAttr>(
     }
   }
 );
-export const restoreNote = createAsyncThunk<any, ArchiveAttr>(
+export const restoreNote = createAsyncThunk<NotesType, NoteAttr>(
   "notes/restoreNote",
   async (note, { rejectWithValue }) => {
     const encodedToken :string = localStorage.getItem("token") || "";
@@ -262,7 +243,7 @@ export const restoreNote = createAsyncThunk<any, ArchiveAttr>(
   }
 );
 
-export const deleteTrashNote = createAsyncThunk<any,ArchiveAttr,{rejectValue:Error}>(
+export const deleteTrashNote = createAsyncThunk<NotesType,NoteAttr,{rejectValue:Error}>(
   "notes/deleteTrashNote",
   async (note, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";
@@ -318,18 +299,18 @@ export const notesSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getUserProfile.fulfilled, (state, action:any) => {
-        state.userProfile = action.payload;
+      .addCase(getUserProfile.fulfilled, (state, action) => {
+       if(action && action.payload) state.userProfile = action.payload;
       })
 
       .addCase(getUserNotes.fulfilled, (state, action) => {
         state.isFetching = false;
         state.notes = action.payload.notes;
       })
-      .addCase(getUserNotes.rejected, (action) => {
-        if(action && action.payload){
-          AlertToast(action.payload)
-        }
+      .addCase(getUserNotes.rejected, (state,action) => {
+       
+console.log(action.payload)
+        
       })
       .addCase(getUserNotes.pending, (state) => {
         state.isFetching = true;
@@ -339,8 +320,10 @@ export const notesSlice = createSlice({
         state.isFetching = false;
         state.notes = action.payload.notes;
       })
-      .addCase(createNoteHandler.rejected, (action) => {
-        console.log(action.payload.errors);
+      .addCase(createNoteHandler.rejected, (state,action) => {
+       
+        console.log(action.payload);
+        
       })
       .addCase(createNoteHandler.pending, (state) => {
         state.isFetching = true;
@@ -350,15 +333,15 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes;
       })
       .addCase(editNoteHandler.rejected, (state, action) => {
-        console.log(action.payload.errors);
+        console.log(action.payload);
       })
 
       .addCase(deleteNoteHandler.fulfilled, (state, action) => {
         state.isFetching = false;
         state.notes = action.payload.notes;
       })
-      .addCase(deleteNoteHandler.rejected, (action) => {
-        console.log(action.payload.errors);
+      .addCase(deleteNoteHandler.rejected, (state,action) => {
+        console.log(action.payload);
       })
       .addCase(deleteNoteHandler.pending, (state) => {
         state.isFetching = true;
@@ -366,10 +349,11 @@ export const notesSlice = createSlice({
       // Archive reducers
       .addCase(getArchiveNotes.fulfilled, (state, action) => {
         state.isFetching = false;
+        console.log(action.payload.archives)
         state.archive = action.payload.archives;
       })
-      .addCase(getArchiveNotes.rejected, (action) => {
-        console.log(action.payload.errors);
+      .addCase(getArchiveNotes.rejected, (state,action) => {
+       console.log(action.payload);
       })
       .addCase(getArchiveNotes.pending, (state) => {
         state.isFetching = true;
@@ -380,8 +364,8 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes;
         state.archive = action.payload.archives;
       })
-      .addCase(archiveNote.rejected, (action) => {
-        console.log(action.payload.errors);
+      .addCase(archiveNote.rejected, (state,action) => {
+        console.log(action.payload);
       })
       .addCase(archiveNote.pending, (state) => {
         state.isFetching = true;
@@ -391,8 +375,8 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes;
         state.archive = action.payload.archives;
       })
-      .addCase(unarchiveNote.rejected, (action) => {
-        console.log(action.payload.errors);
+      .addCase(unarchiveNote.rejected, (state,action) => {
+        console.log(action.payload);
       })
       .addCase(unarchiveNote.pending, (state) => {
         state.isFetching = true;
@@ -401,8 +385,8 @@ export const notesSlice = createSlice({
         state.isFetching = false;
         state.archive = action.payload.archives;
       })
-      .addCase(deleteArchiveNote.rejected, (action) => {
-        console.log(action.payload.errors);
+      .addCase(deleteArchiveNote.rejected, (state,action) => {
+        console.log(action.payload);
       })
       .addCase(deleteArchiveNote.pending, (state) => {
         state.isFetching = true;
@@ -413,8 +397,8 @@ export const notesSlice = createSlice({
         state.isFetching = false;
         state.trash = action.payload.trash;
       })
-      .addCase(getTrashNotes.rejected, (action) => {
-        console.log(action.payload.errors);
+      .addCase(getTrashNotes.rejected, (state,action) => {
+        console.log(action.payload);
       })
       .addCase(getTrashNotes.pending, (state) => {
         state.isFetching = true;
@@ -424,7 +408,7 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes;
         state.trash = action.payload.trash;
       })
-      .addCase(trashNote.rejected, (action) => {
+      .addCase(trashNote.rejected, (state,action) => {
         console.log(action.payload);
       })
       .addCase(trashNote.pending, (state) => {
@@ -435,7 +419,7 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes;
         state.trash = action.payload.trash;
       })
-      .addCase(restoreNote.rejected, (action) => {
+      .addCase(restoreNote.rejected, (state,action) => {
         console.log(action.payload);
       })
       .addCase(restoreNote.pending, (state) => {
@@ -445,7 +429,7 @@ export const notesSlice = createSlice({
         state.isFetching = false;
         state.trash = action.payload.trash;
       })
-      .addCase(deleteTrashNote.rejected, (action) => {
+      .addCase(deleteTrashNote.rejected, (state,action) => {
         console.log(action.payload);
       })
       .addCase(deleteTrashNote.pending, (state) => {
