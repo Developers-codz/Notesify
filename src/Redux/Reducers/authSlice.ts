@@ -11,8 +11,11 @@ const initialState:CurrentUserAttr = {
         _id:""
     },
 };
-
-export const login = createAsyncThunk("/auth/login", async (userDetail) =>{
+type UserProp = {
+    email:string;
+    password:string;
+}
+export const login = createAsyncThunk("/auth/login", async (userDetail:UserProp) =>{
     try {
         const response = await axios.post(`api/auth/login`,JSON.stringify(userDetail));
         SuccessToast("Login Successful")
@@ -23,8 +26,14 @@ export const login = createAsyncThunk("/auth/login", async (userDetail) =>{
         AlertToast(`${error}`)
     }
 })
+type UserDetailProp ={
+    firstname:string;
+    lastname:string;
+    email:string;
+    password:string;
+}
 
-export const signup = createAsyncThunk("/auth/signup", async (userDetail) => {
+export const signup = createAsyncThunk("/auth/signup", async (userDetail:UserDetailProp) => {
     try{
         const response = await axios.post("/api/auth/signup",JSON.stringify(userDetail))
         SuccessToast("SignIn Successful")

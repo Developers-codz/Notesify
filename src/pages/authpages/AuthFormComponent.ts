@@ -16,8 +16,12 @@ export const Form = styled.div`
   flex-direction: column;
   padding: .5rem 3rem;
 `;
+
+type HeaderProp = {
+small?:boolean;
+}
 export const Header = styled.h1`
-  font-size: ${(props) => (props.small ? "1.2rem" : "2.5rem")};
+  font-size: ${(props:HeaderProp) => (props.small ? "1.2rem" : "2.5rem")};
   margin-top: 1rem;
 `;
 export const FormInput = styled.input`

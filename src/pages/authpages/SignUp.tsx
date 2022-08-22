@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import * as React from "react"
+import { ChangeEvent,MouseEvent } from 'react';
 import {
   Wrapper,
   Form,
@@ -8,15 +10,15 @@ import {
   Para,
 } from "./AuthFormComponent";
 import { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useAppDispatch,useAppSelector } from "../../Redux/hooks";
 import { signup } from "Redux/Reducers/authSlice";
 import { AlertToast } from "components/toasts";
 import {useDocumentTitle} from "functions"
 
-export const SignUp = () => {
+export const SignUp = ():JSX.Element => {
   useDocumentTitle("Signup")
-  const dispatch = useDispatch();
-  const {isFetching} = useSelector(store => store.notes)
+  const dispatch = useAppDispatch();
+  const {isFetching} = useAppSelector(store => store.notes)
   const [userDetail, setUserDetail] = useState({
     firstname: "",
     lastname: "",
@@ -27,7 +29,7 @@ export const SignUp = () => {
 
 
 
-  const clickHandler = (e) => {
+  const clickHandler = () => {
     const { firstname, email, lastname, password } = userDetail;
     if (
       firstname &&
@@ -52,7 +54,7 @@ export const SignUp = () => {
     }
   };
 
-  const changeHandler = (e)=> {
+  const changeHandler = (e :ChangeEvent<HTMLInputElement>)=> {
     setUserDetail(prev => ({...prev,[e.target.name]:e.target.value}))
   }
   
@@ -98,7 +100,7 @@ export const SignUp = () => {
             onChange={(e) => setPassMatch(e.target.value)}
           />
 
-          <PrimaryButton primary onClick={(e) => clickHandler(e)} disabled={isFetching}>
+          <PrimaryButton  onClick={clickHandler} disabled={isFetching}>
             SignUp
           </PrimaryButton>
           <Para>

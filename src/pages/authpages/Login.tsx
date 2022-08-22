@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import * as React from "react"
+import { ChangeEvent,MouseEvent } from 'react';
 import {
   Wrapper,
   Form,
@@ -8,25 +10,25 @@ import {
   PrimaryButton,
   Para,
 } from "./AuthFormComponent";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { login } from "Redux/Reducers/authSlice";
 import { useState } from "react";
 import {useDocumentTitle} from "functions"
 
 
-export const Login = () => {
+export const Login = ():JSX.Element => {
   useDocumentTitle("Login")
-  const dispatch = useDispatch();
-  const {isFetching} = useSelector(store => store.notes)
+  const dispatch = useAppDispatch();
+  const {isFetching} = useAppSelector(store => store.notes)
   const [userDetail, setUserDetail] = useState({ email: "", password: "" });
-  const changeHandler = (e) => {
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setUserDetail((prevDetail) => ({
       ...prevDetail,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const clickHandler = (e) => {
+  const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
     dispatch(login(userDetail));
     setUserDetail((prev) => ({ ...prev, email: "", password: "" }));
   };
@@ -61,7 +63,7 @@ export const Login = () => {
           <Button value="credentialLogin" onClick={credentialHandler}>
             Login with Test Credential
           </Button>
-          <PrimaryButton primary onClick={(e) => clickHandler(e)} disabled={isFetching}>
+          <PrimaryButton  onClick={(e)=>clickHandler(e)} disabled={isFetching}>
             Login
           </PrimaryButton>
           <Para>
