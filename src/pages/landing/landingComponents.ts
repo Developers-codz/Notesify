@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   }
 `;
 interface sectionProps{
-  logo:boolean
+  logo?:boolean
 }
 export const Section = styled.div`
   margin-left: ${(props:sectionProps) => (props.logo ? "" : "5rem")};
