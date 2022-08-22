@@ -4,7 +4,6 @@ import {
   NoteCard,
   Title,
   NoteText,
-  CreationTime,
   Priority,
   Footer,
   IconWrapper,
@@ -17,7 +16,7 @@ import {
   UnArchive,
   RestoreIcon,
 } from "assets/icons";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../Redux/hooks";
 import {
   archiveNote,
   unarchiveNote,
@@ -28,13 +27,22 @@ import {
   handleToggleEditModal,
   setNoteToEdit,
 } from "Redux/Reducers/notesSlice";
+import {NotesType} from "../../types/notesType"
 
-export const EachNote = ({ note, flag }) => {
-  const dispatch = useDispatch();
+
+type EachNoteProp = {
+  note:NotesType;
+  flag:string;
+}
+
+export const EachNote = ({ note, flag }:EachNoteProp) => {
+  const dispatch = useAppDispatch();
   const { title, content,  priority, _id, tags,date,time } = note;
 
+
+
   const options = {
-    replace: (domNode) => {
+    replace: (domNode:any) => {
       if (domNode.attribs && domNode.attribs.class === 'remove') {
         return <></>;
       }
@@ -45,7 +53,9 @@ export const EachNote = ({ note, flag }) => {
     <NoteCard style={{ backgroundColor: note.bgcolor }}>
       <Title>{title}</Title>
       <NoteText>{parse(content,options)}</NoteText>
-      <CreationTime>Created at: {date}{" "}{time}  </CreationTime>
+      <p>
+        Created at: <>{date} {time} </>
+      </p>
       <Footer>
         <Priority>{priority}</Priority>
         {tags.map((tag, i) => {

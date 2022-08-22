@@ -133,7 +133,7 @@ export const getArchiveNotes = createAsyncThunk(
   }
 );
 
-export const archiveNote = createAsyncThunk<NotesType, NoteAttr>(
+export const archiveNote = createAsyncThunk<any, NoteAttr>(
   "notes/archiveNote",
   async (note, { rejectWithValue }) => {
     const encodedToken:string= localStorage.getItem("token") || "";
@@ -151,7 +151,7 @@ export const archiveNote = createAsyncThunk<NotesType, NoteAttr>(
     }
   }
 );
-export const unarchiveNote = createAsyncThunk<NotesType ,NoteAttr>(
+export const unarchiveNote = createAsyncThunk<any ,NoteAttr>(
   "notes/unarchiveNote",
   async (note, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";
@@ -170,7 +170,7 @@ export const unarchiveNote = createAsyncThunk<NotesType ,NoteAttr>(
   }
 );
 
-export const deleteArchiveNote = createAsyncThunk<NotesType,string>(
+export const deleteArchiveNote = createAsyncThunk<any,string>(
   "notes/deleteArchiveNote",
   async (id, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";
@@ -204,7 +204,7 @@ export const getTrashNotes = createAsyncThunk(
   }
 );
 
-export const trashNote = createAsyncThunk<NotesType,NoteAttr>(
+export const trashNote = createAsyncThunk<any,NoteAttr>(
   "notes/trashNote",
   async (note, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";
@@ -223,7 +223,7 @@ export const trashNote = createAsyncThunk<NotesType,NoteAttr>(
     }
   }
 );
-export const restoreNote = createAsyncThunk<NotesType, NoteAttr>(
+export const restoreNote = createAsyncThunk<any, NoteAttr>(
   "notes/restoreNote",
   async (note, { rejectWithValue }) => {
     const encodedToken :string = localStorage.getItem("token") || "";
@@ -243,7 +243,7 @@ export const restoreNote = createAsyncThunk<NotesType, NoteAttr>(
   }
 );
 
-export const deleteTrashNote = createAsyncThunk<NotesType,NoteAttr,{rejectValue:Error}>(
+export const deleteTrashNote = createAsyncThunk<any,NoteAttr,{rejectValue:Error}>(
   "notes/deleteTrashNote",
   async (note, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";

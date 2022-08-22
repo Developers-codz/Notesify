@@ -17,9 +17,7 @@ export const NoteText = styled.p`
     margin:.7rem 0;
 
 `
-export const CreationTime = styled.p`
-    
-`
+
 export const Priority = styled.div`
 padding:.3rem 1rem;
 background-color: var(--color-primary);

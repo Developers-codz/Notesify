@@ -10,18 +10,18 @@ import {
   EditorFooter,
   CheckBoxInput,
   Checkboxlabel,
-} from "pages/home/homeComponents";
+} from "../../pages/home/homeComponents";
 
 import {
   handleToggleModal,
   createNoteHandler,
 } from "Redux/Reducers/notesSlice";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../Redux/hooks";
 import { AlertToast } from "../toasts";
 import { ColorPallete } from "../pallete/ColorPallete";
 
 export const CreateModal = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [bgColor, setbgColor] = useState("whitesmoke");
   const [note, setNote] = useState({ title: "", content: "", priority: "Low" });

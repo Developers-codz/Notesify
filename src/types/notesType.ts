@@ -21,7 +21,9 @@ export type NotesType = {
     _id:string;
     trash:NotesType[] ,
     archives:NotesType[],
-    notes:NotesType[]
+    notes:NotesType[];
+    priority:string;
+    title:string;
 } 
 
 export interface StateProps{

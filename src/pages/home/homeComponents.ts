@@ -52,12 +52,16 @@ export const CheckBoxInput = styled.input`
 export const Checkboxlabel = styled.label`
   margin: 0.2rem;
 `;
+
+type BtnProp ={
+  addNotes:boolean;
+}
 export const ButtonToNote = styled.button`
   margin: 0 1rem;
   border: none;
-  background: ${(props) => (props.addNotes ? "#d6806a" : "transparent")};
-  padding: ${(props) => (props.addNotes ? ".5rem 1rem" : "")};
-  border-radius: ${(props) => (props.addNotes ? "10px" : "")};
+  background: ${(props:BtnProp) => (props.addNotes ? "#d6806a" : "transparent")};
+  padding: ${(props:BtnProp) => (props.addNotes ? ".5rem 1rem" : "")};
+  border-radius: ${(props:BtnProp) => (props.addNotes ? "10px" : "")};
   cursor: pointer;
   font-size: 1.1rem;
   position: ${(props) => (props.addNotes ? "fixed" : "")};
@@ -91,9 +95,13 @@ export const EditorFooter = styled.div`
   }
 `;
 
+type NoNoteProp = {
+  noNote:boolean
+}
+
 export const NotesWrapper = styled.div`
   padding: 1rem;
-  text-align: ${(props) => (props.noNote ? "center" : "start")};
+  text-align: ${(props:NoNoteProp) => (props.noNote ? "center" : "start")};
   @media only screen and (max-width:768px){
     padding:0;
   
