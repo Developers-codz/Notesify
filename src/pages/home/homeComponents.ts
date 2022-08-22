@@ -54,7 +54,7 @@ export const Checkboxlabel = styled.label`
 `;
 
 type BtnProp ={
-  addNotes:boolean;
+  addNotes?:boolean;
 }
 export const ButtonToNote = styled.button`
   margin: 0 1rem;
@@ -96,7 +96,7 @@ export const EditorFooter = styled.div`
 `;
 
 type NoNoteProp = {
-  noNote:boolean
+  noNote?:boolean
 }
 
 export const NotesWrapper = styled.div`

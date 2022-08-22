@@ -21,6 +21,8 @@ import { AlertToast } from "../toasts";
 import { ColorPallete } from "../pallete/ColorPallete";
 
 export const CreateModal = () => {
+
+
   const dispatch = useAppDispatch();
 
   const [bgColor, setbgColor] = useState("whitesmoke");

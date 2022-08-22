@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../Redux/hooks";
 import {
   NotesWrapper,
   NoNotesMsg,
@@ -13,8 +13,8 @@ import {useDocumentTitle} from "functions"
 
 export const Archive = () => {
   useDocumentTitle("Archive")
-  const { archive } = useSelector((store) => store.notes);
-  const dispatch = useDispatch();
+  const { archive } = useAppSelector((store) => store.notes);
+  const dispatch = useAppDispatch();
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -30,7 +30,7 @@ export const Archive = () => {
       {isLoading ? (
         "loading...."
       ) : archive.length !== 0 ? (
-        <NotesWrapper>
+        <NotesWrapper> 
           {archive.map((eachnote) => (
             <EachNote note={eachnote} flag={"archive"} key={eachnote._id} />
           ))}
