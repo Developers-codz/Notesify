@@ -25,6 +25,13 @@ export type NotesType = {
     priority:string;
     title:string;
 } 
+export type CreateNotesType = {
+  title:string;
+  content: string;
+  bgcolor: string;
+  priority:string,
+  tags: Tag[],
+}
 
 export interface StateProps{
     userProfile:UserProfileType ;

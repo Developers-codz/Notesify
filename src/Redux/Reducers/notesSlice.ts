@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SuccessToast, AlertToast } from "../../components/toasts";
 import axios from "axios";
-import {StateProps,NoteAttr, NotesType} from "../../types/notesType"
+import {StateProps,NoteAttr, NotesType,CreateNotesType} from "../../types/notesType"
 
 const initialState :StateProps = {
   userProfile:{},
@@ -57,7 +57,7 @@ const getUserProfile = createAsyncThunk(
 
 export const createNoteHandler = createAsyncThunk(
   "notes/createNoteHandler",
-  async (note, { rejectWithValue }) => {
+  async (note:CreateNotesType, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";
     try {
       const response = await axios.post(

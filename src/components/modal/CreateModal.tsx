@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import * as React  from "react";
+import { useState,ChangeEvent,MouseEvent } from "react"
 import "pages/home/home.css";
 import { Editor } from "../editor/Editor";
 
@@ -27,15 +28,15 @@ export const CreateModal = () => {
 
   const [bgColor, setbgColor] = useState("whitesmoke");
   const [note, setNote] = useState({ title: "", content: "", priority: "Low" });
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<string[]>([]);
 
-  const changeHandler = (e) => {
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setNote((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
 
 
-  const setTagsHandler = (e) => {
+  const setTagsHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const include = e.target.checked;
     const value = e.target.value;
     if (include) {
@@ -108,7 +109,7 @@ export const CreateModal = () => {
               checked={tags.some((tag) => tag === "Study")}
               value="Study"
               id="study"
-              onClick={setTagsHandler}
+              onChange={setTagsHandler}
             />
             <Checkboxlabel htmlFor="study">Study</Checkboxlabel>
             <select
