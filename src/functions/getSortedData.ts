@@ -1,4 +1,4 @@
-export const getSortedData = (notes:any[], byDate:string) => {
+export const getSortedData = (notes:any[], byDate:string|null) => {
   interface DateProps {
     createdAt:Date
   }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector,useAppDispatch } from "../../Redux/hooks";
 import "./home.css";
 import {
   ButtonToNote,
@@ -8,7 +8,6 @@ import {
   ButtonToNoteNow,
 } from "./homeComponents";
 import { handleToggleModal, getUserNotes } from "Redux/Reducers/notesSlice";
-import { useDispatch } from "react-redux";
 import { EachNote } from "components/eachNote/EachNote";
 import { Logo } from "assets/icons";
 import {
@@ -18,15 +17,20 @@ import {
   useDocumentTitle,
   getSearchSortedData
 } from "functions";
+import {NotesType} from "../../types/notesType"
 
 export const Home = () => {
-  const dispatch = useDispatch();
-  const { notes, byPriority, byTags, byDate ,bySearch} = useSelector(
+  const dispatch = useAppDispatch();
+  const { notes, byPriority, byTags, byDate ,bySearch} = useAppSelector(
     (store) => store.notes
   );
+  type PriorityNoteType = {
+    searchSortedNotes:NotesType;
+    byPriority : string
+  }
   const [isLoading, setLoading] = useState(true);
-  const searchSortedNotes = getSearchSortedData(notes,bySearch)
-  const priorityNotes = getPrioritySorted(searchSortedNotes, byPriority);
+  const searchSortedNotes:NotesType[] = getSearchSortedData(notes,bySearch)
+  const priorityNotes = getPrioritySorted(searchSortedNotes, byPriority );
   const tagSortedNotes = getTagsSortedData(priorityNotes, byTags);
   const sortedData = getSortedData(tagSortedNotes, byDate);
   useDocumentTitle("Home");

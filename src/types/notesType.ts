@@ -35,9 +35,9 @@ export interface StateProps{
     trash: NotesType[],
     isFetching: boolean,
     noteToEdit: null|boolean,
-    byPriority: null|boolean,
+    byPriority: string |null,
     byTags: any[],
-    byDate: null|string,
+    byDate: string | null,
     bySearch:string
   }
   export type  NoteAttr = {

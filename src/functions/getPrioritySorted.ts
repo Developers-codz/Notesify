@@ -1,5 +1,5 @@
-import {StateProps} from "../Redux/Reducers/notesSlice"
-export const getPrioritySorted= (notes:any[],priorityBy:string) => {
+import {NotesType} from "../types/notesType"
+export const getPrioritySorted= (notes:NotesType[],priorityBy:string|null) => {
     switch(priorityBy){
         case "Low":{
             return notes.filter(note => note.priority === "Low")

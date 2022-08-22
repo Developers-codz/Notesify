@@ -265,7 +265,7 @@ export const notesSlice = createSlice({
   name: "notes",
   initialState,
   reducers: {
-    handleToggleModal: (state, action) => {
+    handleToggleModal: (state) => {
       state.modalOpen = !state.modalOpen;
     },
     handleToggleEditModal: (state) => {
@@ -308,9 +308,7 @@ export const notesSlice = createSlice({
         state.notes = action.payload.notes;
       })
       .addCase(getUserNotes.rejected, (state,action) => {
-       
-console.log(action.payload)
-        
+       console.log(action.payload) 
       })
       .addCase(getUserNotes.pending, (state) => {
         state.isFetching = true;
