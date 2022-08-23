@@ -1,5 +1,5 @@
 import * as React  from "react";
-import { useState,ChangeEvent,MouseEvent } from "react"
+import { useState,ChangeEvent } from "react"
 import "pages/home/home.css";
 import { Editor } from "../editor/Editor";
 

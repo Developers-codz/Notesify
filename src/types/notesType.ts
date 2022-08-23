@@ -33,19 +33,27 @@ export type CreateNotesType = {
   tags: Tag[],
 }
 
+export type NoteToEdit = {
+        _id:string;
+        title:string;
+        content: string;
+        bgcolor: string;
+        priority: string,
+        tags: Tag[],
+}
 export interface StateProps{
     userProfile:UserProfileType ;
     notes:NotesType[];
     archive:NotesType[];
     modalOpen:boolean;
-    editModalOpen:boolean,
-    trash: NotesType[],
-    isFetching: boolean,
-    noteToEdit: null|boolean,
-    byPriority: string |null,
-    byTags: any[],
-    byDate: string | null,
-    bySearch:string
+    editModalOpen:boolean;
+    trash: NotesType[];
+    isFetching: boolean;
+    noteToEdit: NoteToEdit | null;
+    byPriority: string |null;
+    byTags: any[];
+    byDate: string | null;
+    bySearch:string;
   }
   export type  NoteAttr = {
     _id:string

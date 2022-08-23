@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SuccessToast, AlertToast } from "../../components/toasts";
 import axios from "axios";
-import {StateProps,NoteAttr, NotesType,CreateNotesType} from "../../types/notesType"
+import {StateProps,NoteAttr, NotesType,CreateNotesType,NoteToEdit} from "../../types/notesType"
 
 const initialState :StateProps = {
   userProfile:{},

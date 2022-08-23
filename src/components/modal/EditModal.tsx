@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,ChangeEvent } from "react";
 import "pages/home/home.css";
 import { Editor } from "../editor/Editor";
 import {
@@ -15,28 +15,29 @@ import {
   handleToggleEditModal,
   editNoteHandler
 } from "Redux/Reducers/notesSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { AlertToast } from "../toasts";
 import { ColorPallete } from "../pallete/ColorPallete";
 
-export const EditModal = () => {
-  const { noteToEdit } = useSelector((store) => store.notes);
+export const EditModal = ():JSX.Element => {
+  const { noteToEdit  } = useAppSelector((store) => store.notes);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const [bgColor, setbgColor] = useState(noteToEdit.bgcolor);
+  const [bgColor, setbgColor] = useState(noteToEdit?.bgcolor);
   const [note, setNote] = useState({
-    title: noteToEdit.title,
-    content: noteToEdit.content,
-    priority: noteToEdit.priority,
+    _id:noteToEdit?._id,
+    title: noteToEdit?.title,
+    content: noteToEdit?.content,
+    priority: noteToEdit?.priority,
   });
   const [tags, setTags] = useState(noteToEdit.tags);
 
-  const changeHandler = (e) => {
+  const changeHandler = (e:ChangeEvent<HTMLInputElement>) => {
     setNote((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const setTagsHandler = (e) => {
+  const setTagsHandler = (e:ChangeEvent<HTMLInputElement>) => {
     const include = e.target.checked;
     const value = e.target.value;
     if (include) {
@@ -58,8 +59,8 @@ export const EditModal = () => {
     const parsedData = note.content
     dispatch(
         editNoteHandler({
-        _id:noteToEdit._id,
-        title: note.title,
+        _id:note?._id,
+        title: note?.title,
         content: parsedData,
         bgcolor: bgColor,
         priority: note.priority,
@@ -110,7 +111,7 @@ export const EditModal = () => {
               checked={tags.some((tag) => tag === "Study")}
               value="Study"
               id="study"
-              onClick={setTagsHandler}
+              onChange={setTagsHandler}
             />
             <Checkboxlabel htmlFor="study">Study</Checkboxlabel>
             <select
