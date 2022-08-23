@@ -49,7 +49,7 @@ export interface StateProps{
     editModalOpen:boolean;
     trash: NotesType[];
     isFetching: boolean;
-    noteToEdit: NoteToEdit | null;
+    noteToEdit: NoteToEdit|null;
     byPriority: string |null;
     byTags: any[];
     byDate: string | null;

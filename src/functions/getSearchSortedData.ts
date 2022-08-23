@@ -1,4 +1,5 @@
-export const getSearchSortedData = (notes:any[], searchText:string) => {
+import {NotesType} from "../types/notesType"
+export const getSearchSortedData = (notes:NotesType[], searchText:string) => {
   if (searchText === "") return notes;
   else {
     let searchedNotes:any[] = [...notes];

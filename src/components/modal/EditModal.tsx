@@ -31,7 +31,9 @@ export const EditModal = ():JSX.Element => {
     content: noteToEdit?.content,
     priority: noteToEdit?.priority,
   });
-  const [tags, setTags] = useState(noteToEdit.tags);
+
+  
+  const [tags, setTags] = useState(noteToEdit?.tags);
 
   const changeHandler = (e:ChangeEvent<HTMLInputElement>) => {
     setNote((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -41,9 +43,10 @@ export const EditModal = ():JSX.Element => {
     const include = e.target.checked;
     const value = e.target.value;
     if (include) {
-      setTags([...tags, value]);
+      // Providing a fallback of an empty array as tags can be undefined
+      setTags([...(tags|| []), value as string]);
     } else {
-      setTags([...tags.filter((tag) => tag != value)]);
+      setTags([...(tags || [])?.filter((tag) => tag != value)]);
     }
   };
 
@@ -92,7 +95,7 @@ export const EditModal = ():JSX.Element => {
           <div>
             <CheckBoxInput
               type="checkbox"
-              checked={tags.some((tag) => tag === "Office")}
+              checked={tags?.some((tag) => tag === "Office")}
               value="Office"
               id="office"
               onChange={setTagsHandler}
@@ -100,7 +103,7 @@ export const EditModal = ():JSX.Element => {
             <Checkboxlabel htmlFor="office">Office</Checkboxlabel>
             <CheckBoxInput
               type="checkbox"
-              checked={tags.some((tag) => tag === "Health")}
+              checked={tags?.some((tag) => tag === "Health")}
               value="Health"
               id="health"
               onChange={setTagsHandler}
@@ -108,7 +111,7 @@ export const EditModal = ():JSX.Element => {
             <Checkboxlabel htmlFor="health">Health</Checkboxlabel>
             <CheckBoxInput
               type="checkbox"
-              checked={tags.some((tag) => tag === "Study")}
+              checked={tags?.some((tag) => tag === "Study")}
               value="Study"
               id="study"
               onChange={setTagsHandler}
