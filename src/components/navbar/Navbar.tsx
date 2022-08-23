@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import * as React from "react"
+import { useState, useEffect,ChangeEvent } from "react";
 import { useLocation } from "react-router-dom";
 import { Logo, Search, LoginIcon, FilterIcon } from "../../assets/icons";
 import {
@@ -28,7 +29,7 @@ import { debounce } from "../../functions";
 // import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch,useAppSelector } from "../../Redux/hooks";
 
-export const Navbar = () => {
+export const Navbar = ()=> {
   const [isMenuOpen, setOpen] = useState({ logout: false, filter: false });
   const dispatch = useAppDispatch();
   const tags = ["Study", "Health", "Office"];
@@ -36,10 +37,10 @@ export const Navbar = () => {
   const { pathname } = useLocation();
   const [searchText, setSearchText] = useState("");
 
-  const priorityHandler = (e) => {
+  const priorityHandler = (e:ChangeEvent<HTMLInputElement>) => {
     dispatch(setByPriority(e.target.value));
   };
-  const dateHandler = (e) => {
+  const dateHandler = (e:ChangeEvent<HTMLInputElement>) => {
     dispatch(setByDate(e.target.value));
   };
 
@@ -163,7 +164,7 @@ export const Navbar = () => {
                 id="new"
                 name="date"
                 value="new"
-                onClick={dateHandler}
+                onChange={dateHandler}
                 checked={byDate === "new"}
               />
               <label htmlFor="new">Newest First</label>

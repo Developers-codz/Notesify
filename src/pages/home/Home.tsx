@@ -19,7 +19,7 @@ import {
 } from "functions";
 import {NotesType} from "../../types/notesType"
 
-export const Home = () => {
+export const Home = ():JSX.Element => {
   const dispatch = useAppDispatch();
   const { notes, byPriority, byTags, byDate ,bySearch} = useAppSelector(
     (store) => store.notes

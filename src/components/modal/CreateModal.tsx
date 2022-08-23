@@ -21,7 +21,7 @@ import { useAppDispatch } from "../../Redux/hooks";
 import { AlertToast } from "../toasts";
 import { ColorPallete } from "../pallete/ColorPallete";
 
-export const CreateModal = () => {
+export const CreateModal = ():JSX.Element => {
 
 
   const dispatch = useAppDispatch();

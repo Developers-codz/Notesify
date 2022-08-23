@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { EachNote } from "components";
 import {useDocumentTitle} from "functions"
 
-export const Trash = () => {
+export const Trash = ():JSX.Element => {
   useDocumentTitle("Trash")
   const { trash } = useAppSelector((store) => store.notes);
   const [isLoading, setLoading] = useState(true);

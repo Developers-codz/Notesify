@@ -11,7 +11,7 @@ import { getArchiveNotes } from "Redux/Reducers/notesSlice";
 import { EachNote } from "components";
 import {useDocumentTitle} from "functions"
 
-export const Archive = () => {
+export const Archive = ():JSX.Element => {
   useDocumentTitle("Archive")
   const { archive } = useAppSelector((store) => store.notes);
   const dispatch = useAppDispatch();

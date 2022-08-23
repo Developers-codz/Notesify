@@ -64,7 +64,7 @@ const authSlice = createSlice({
     name:"auth",
     initialState,
     reducers:{
-        logout : (state,action) =>{
+        logout : (state) =>{
             state.currentUser={};
             SuccessToast("Successfully Logged Out");
             localStorage.removeItem("token")

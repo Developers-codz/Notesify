@@ -1,9 +1,10 @@
 import { useLocation } from "react-router-dom";
+import * as React from "react"
 import { NavMenu, NavItem, NavLinks, IconWrapper } from "./asideComponent";
 import { HomeIcon ,TrashIcon,ArchiveIcon} from "../../assets/icons/navigationIcon";
 import { useAppSelector } from "../../Redux/hooks";
 
-export const Aside = () => {
+export const Aside = ():JSX.Element => {
   const { pathname } = useLocation();
   const { drawerOpen } = useAppSelector(store => store.aside)
   return pathname !== "/landing" &&
@@ -26,5 +27,5 @@ export const Aside = () => {
         </NavLinks>
       </NavMenu>
     </aside>
-  ) : null;
+  ) : <></>;
 };

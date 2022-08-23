@@ -39,7 +39,7 @@ type PrevObj = {
   content:string
 }
 
-export const Editor = ({note,setNote}:Props) => {
+export const Editor = ({note,setNote}:Props):JSX.Element => {
   return (
     <ReactQuill
           placeholder={"Add notes......"}

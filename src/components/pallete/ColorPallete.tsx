@@ -9,7 +9,7 @@ import { Pallette,
 type Props = {
   setbgColor: (value: string) => void;
 }
-export const ColorPallete = ({setbgColor}:Props) => {
+export const ColorPallete = ({setbgColor}:Props):JSX.Element => {
   return (
     <Pallette>
     <PinkButton onClick={() => setbgColor("lightpink")}></PinkButton>

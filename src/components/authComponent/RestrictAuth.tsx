@@ -5,7 +5,7 @@ import { useAppSelector } from "../../Redux/hooks";
 
 
 
-export const RestrictAuth = () => {
+export const RestrictAuth = ():JSX.Element => {
     interface UserProps{
         _id?:string
       }

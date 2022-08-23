@@ -35,7 +35,7 @@ type EachNoteProp = {
   flag:string;
 }
 
-export const EachNote = ({ note, flag }:EachNoteProp) => {
+export const EachNote = ({ note, flag }:EachNoteProp):JSX.Element => {
   const dispatch = useAppDispatch();
   const { title, content,  priority, _id, tags,date,time } = note;
 

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 interface MyProps {
-  exact: boolean;
+  exact?: boolean;
 }
 export const NavMenu = styled.ul`
   list-style: none;
