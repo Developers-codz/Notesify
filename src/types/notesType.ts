@@ -56,5 +56,14 @@ export interface StateProps{
     bySearch:string;
   }
   export type  NoteAttr = {
-    _id:string
+    _id?:string
+  }
+
+  export type NoteEditAttr = {
+    _id?:string;
+    title ?:string;
+    content?:string;
+        bgcolor?: string;
+        priority?: string;
+        tags?: string[];
   }

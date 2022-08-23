@@ -31,7 +31,7 @@ const modules = {
   
 type Props = {
   note:{
-    content:string
+    content?:string
   },
   setNote : any
 }

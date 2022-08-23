@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SuccessToast, AlertToast } from "../../components/toasts";
 import axios from "axios";
-import {StateProps,NoteAttr, NotesType,CreateNotesType,NoteToEdit} from "../../types/notesType"
+import {StateProps,NoteAttr, NotesType,CreateNotesType,NoteEditAttr} from "../../types/notesType"
 
 const initialState :StateProps = {
   userProfile:{},
@@ -78,7 +78,7 @@ export const createNoteHandler = createAsyncThunk(
 );
 
 
-export const editNoteHandler = createAsyncThunk<any,NoteAttr>(
+export const editNoteHandler = createAsyncThunk<any,NoteEditAttr>(
   "notes/editNoteHandler",
   async (note, { rejectWithValue }) => {
     const encodedToken:string = localStorage.getItem("token") || "";

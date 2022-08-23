@@ -59,7 +59,7 @@ export const EditModal = ():JSX.Element => {
     const parsedData = note.content
     dispatch(
         editNoteHandler({
-        _id:note?._id,
+        _id:note._id,
         title: note?.title,
         content: parsedData,
         bgcolor: bgColor,
