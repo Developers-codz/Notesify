@@ -1,0 +1,20 @@
+{
+  "compilerOptions":
+   {
+    "target": "es2016",
+    "baseUrl": "src",                                 
+    /* Modules */
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "jsx": "react",                    
+    "esModuleInterop": true,                           
+    "forceConsistentCasingInFileNames": true,    
+    /* Type Checking */
+    "strict": true,                                
+    "skipLibCheck": true,                           
+    "exclude": ["node_modules", "build", "src", "modules.d.ts"],
+    "include": ["src"]
+  },
+}
