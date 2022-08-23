@@ -1,4 +1,5 @@
 import "./App.css";
+import * as React from "react"
 import { useEffect } from "react";
 // eslint-disable-next-line
 import GlobalStyle from "globalStyles";
@@ -12,14 +13,14 @@ import {
   CreateModal,
   EditModal,
 } from "./components";
-import MockMan from "mockman-js";
+// import MockMan from "mockman-js";
 import { Routes, Route } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "./Redux/hooks";
 import { checkToken, login } from "Redux/Reducers/authSlice";
 
-function App() {
-  const { modalOpen, editModalOpen } = useSelector((store) => store.notes);
-  const dispatch = useDispatch();
+function App():JSX.Element {
+  const { modalOpen, editModalOpen } = useAppSelector((store) => store.notes);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(checkToken());
   }, []);
@@ -51,7 +52,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
           </Route>
-          <Route path="/mockman" element={<MockMan />} />
+          {/* <Route path="/mockman" element={<MockMan />} /> */}
         </Routes>
       </div>
     </>
